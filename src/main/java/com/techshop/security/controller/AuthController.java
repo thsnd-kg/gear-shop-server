@@ -4,8 +4,6 @@ import com.techshop.common.ResponseHandler;
 import com.techshop.security.dto.LoginDto;
 import com.techshop.security.jwt.JwtUtils;
 import io.jsonwebtoken.Jwts;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,7 +22,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private static final Logger logger = LoggerFactory.getLogger(Jwts.class);
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     @Autowired
@@ -54,7 +51,7 @@ public class AuthController {
             // log history - AOP
             return ResponseHandler.getResponse(token, HttpStatus.OK);
         } catch (Exception e) {
-            logger.debug("{} has been logged in with wrong password: {}",dto.getUsername(), e.getMessage() );
+            System.out.println("{} has been logged in with wrong password: {}" + dto.getUsername() + e.getMessage() );
         }
 
         return ResponseHandler.getResponse("Username or password is invalid.", HttpStatus.BAD_REQUEST);

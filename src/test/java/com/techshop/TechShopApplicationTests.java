@@ -9,15 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class TechShopApplicationTests {
 
-    @Autowired
-    private ProductService service;
+
 
     @Test
     void contextLoads() {
-        Product product = new Product();
-        product.setName("Alibaba");
-        product.setDescription("123123");
-        service.createProduct(product);
     }
 
 }

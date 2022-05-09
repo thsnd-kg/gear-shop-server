@@ -1,7 +1,5 @@
 package com.techshop.security.jwt;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -19,7 +17,6 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    private static final Logger logger = LoggerFactory.getLogger(Jwts.class);
 
     private Long jwtExpiration = 86400000L;
     private String jwtSecret = "thisismysecrettoken";
@@ -43,15 +40,15 @@ public class JwtUtils {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (SignatureException e1) {
-            logger.error("Invalid JWT Signature: {}", e1.getMessage());
+            System.out.println("Invalid JWT Signature: "+ e1.getMessage());
         } catch (ExpiredJwtException e2) {
-            logger.error("JWT token is expired: {}", e2.getMessage());
+            System.out.println("JWT token is expired: "+ e2.getMessage());
         } catch (MalformedJwtException e3) {
-            logger.error("Invalid JWT Token: {}", e3.getMessage());
+            System.out.println("Invalid JWT Token: "+ e3.getMessage());
         } catch (IllegalArgumentException e4) {
-            logger.error("JWT claims string is empty: {}", e4.getMessage());
+            System.out.println("JWT claims string is empty: "+ e4.getMessage());
         } catch (UnsupportedJwtException e5) {
-            logger.error("JWT Token is not support: {}", e5.getMessage());
+            System.out.println("JWT Token is not support: "+ e5.getMessage());
         }
 
         return false;

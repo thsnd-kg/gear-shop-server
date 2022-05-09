@@ -20,6 +20,11 @@ import java.util.Set;
 @Entity
 @Table(name = "techshop_group")
 public class Group extends BaseEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "group_id", updatable = false)
+	private Long groupId;
+
 	@NotNull
 	@Size(min = 3, max = 50, message = "{group.name.size}")
 	private String name;
