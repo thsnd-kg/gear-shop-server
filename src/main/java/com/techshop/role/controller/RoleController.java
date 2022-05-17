@@ -5,6 +5,7 @@ import com.techshop.role.dto.RoleDto;
 import com.techshop.role.dto.UpdateRoleDto;
 import com.techshop.role.entity.Role;
 import com.techshop.role.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {
-	private RoleService service;
-	
+	private  final RoleService service;
+
+	@Autowired
 	public RoleController(RoleService roleService) {
 		service = roleService;
 	}

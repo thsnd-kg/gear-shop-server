@@ -4,17 +4,22 @@ import com.techshop.role.dto.RoleDto;
 import com.techshop.role.dto.UpdateRoleDto;
 import com.techshop.role.entity.Role;
 import com.techshop.role.repository.RoleRepository;
+import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 // concrete
 @Service
-@Transactional
 public class RoleServiceImpl implements RoleService {
 	private RoleRepository repository;
+
+	RoleServiceImpl(RoleRepository repository){
+		this.repository = repository;
+	}
 
 	
 	@Override
@@ -38,8 +43,13 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public boolean isExistedId(Long roleId) {
-		return repository.existsById(roleId);
+	public Role getRoleById(Long roleId) {
+		Optional<Role> role = repository.findById(roleId);
+
+		if(!role.isPresent())
+			throw new IllegalStateException("Role does not exists");
+
+		return role.get();
 	}
 
 	@Override
@@ -55,6 +65,11 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public void deleteById(Long roleId) {
 		repository.deleteById(roleId);;
+	}
+
+	@Override
+	public boolean isExistedId(Long roleId) {
+		return repository.existsById(roleId);
 	}
 
 }

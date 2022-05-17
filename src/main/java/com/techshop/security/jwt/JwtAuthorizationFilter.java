@@ -2,8 +2,6 @@ package com.techshop.security.jwt;
 
 
 import io.jsonwebtoken.Jwts;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +18,6 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
-    private static final Logger logger = LoggerFactory.getLogger(Jwts.class);
     private final JwtUtils jwtUtils;
     private final UserDetailsService userDetailsService;
 
@@ -47,7 +44,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         } catch (Exception e) {
-            logger.debug("An unathorized request has been sent from {}.", request.getRemoteAddr());
+            System.out.println("An unathorized request has been sent from {}."+ request.getRemoteAddr());
         }
 
         filterChain.doFilter(request, response);

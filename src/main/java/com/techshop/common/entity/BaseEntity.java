@@ -17,13 +17,6 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    protected Long id;
-
-    @Version
-    protected int version;
 
     @CreatedBy
     protected String createdBy;
