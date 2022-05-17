@@ -84,8 +84,8 @@ public class BrandServiceImpl implements BrandService{
                 brand = repo.getById(dto.getBrandId());
         }
 
-        if(dto.getBrandName() != null)
-            brand.setBrandName(dto.getBrandName());
+        if(dto.getName() != null)
+            brand.setName(dto.getName());
 
         if(dto.getDescription() !=null) {
             brand.setDescription(dto.getDescription());

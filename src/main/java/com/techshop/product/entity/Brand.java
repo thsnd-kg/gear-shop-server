@@ -25,7 +25,7 @@ public class Brand extends BaseEntity {
     private Long brandId;
 
     @NotBlank
-    private String brandName;
+    private String name;
 
     private String imgUrl;
     private String description;

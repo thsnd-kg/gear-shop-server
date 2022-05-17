@@ -1,6 +1,7 @@
 package com.techshop.user.validation.validator;
 
 import com.techshop.common.util.ValidatorUtils;
+import com.techshop.user.dto.ChangePasswordDto;
 import com.techshop.user.dto.CreateUserDto;
 import com.techshop.user.validation.annotation.ConfirmPassword;
 
@@ -23,7 +24,7 @@ public class ConfirmPasswordValidator
             return false;
         }
 
-        if(dto.getPassword().equals(dto.getConfirmPassword()))
+        if(dto.getPassword().equals(dto.getConfirmPassword()) )
             return true;
 
         ValidatorUtils.addError(context, message);

@@ -17,8 +17,6 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
-    @Version
-    protected int version;
 
     @CreatedBy
     protected String createdBy;

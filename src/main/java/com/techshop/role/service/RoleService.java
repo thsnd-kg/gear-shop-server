@@ -17,9 +17,11 @@ public interface RoleService {
 
 	boolean isTakenName(String roleName);
 
-	boolean isExistedId(Long roleId);
+	Role getRoleById(Long roleId);
 
 	Role update(UpdateRoleDto dto, Long id);
 
 	void deleteById(Long roleId);
+
+	boolean isExistedId(Long roleId);
 }

@@ -3,6 +3,10 @@ package com.techshop.security.controller;
 import com.techshop.common.ResponseHandler;
 import com.techshop.security.dto.LoginDto;
 import com.techshop.security.jwt.JwtUtils;
+import com.techshop.user.dto.CreateUserDto;
+import com.techshop.user.entity.User;
+import com.techshop.user.repository.UserRepository;
+import com.techshop.user.service.UserService;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +28,17 @@ import javax.validation.Valid;
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final UserService userService;
+
     @Autowired
     private PasswordEncoder encoder;
 
-    public AuthController(AuthenticationManager authManager, JwtUtils jwtUtils) {
+
+
+    public AuthController(AuthenticationManager authManager, JwtUtils jwtUtils, UserService userService) {
         authenticationManager = authManager;
         this.jwtUtils = jwtUtils;
+        this.userService = userService;
     }
 
 
@@ -39,7 +48,6 @@ public class AuthController {
             return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
         Authentication auth = null;
-        System.out.println(encoder.encode(dto.getPassword()));
 
         try {
             auth = authenticationManager.authenticate(
@@ -55,5 +63,20 @@ public class AuthController {
         }
 
         return ResponseHandler.getResponse("Username or password is invalid.", HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(path = "/register")
+    public Object register(@Valid @RequestBody CreateUserDto dto, BindingResult errors) {
+        try{
+            if(errors.hasErrors())
+                return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+
+            dto.setRoleId(null);
+            User addedUser = userService.createUser(dto);
+
+            return ResponseHandler.getResponse(addedUser, HttpStatus.CREATED);
+        } catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
