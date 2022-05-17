@@ -66,7 +66,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/register")
-    public Object register(@RequestBody CreateUserDto dto, BindingResult errors) {
+    public Object register(@Valid @RequestBody CreateUserDto dto, BindingResult errors) {
         try{
             if(errors.hasErrors())
                 return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);

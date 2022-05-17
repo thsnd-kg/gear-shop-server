@@ -34,4 +34,6 @@ public class Attribute extends BaseEntity {
             updatable = false,
             nullable = false)
     private Category category;
+
+    private String attributeIcon;
 }

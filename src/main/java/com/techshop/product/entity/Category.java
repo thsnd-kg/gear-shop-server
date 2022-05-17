@@ -32,6 +32,8 @@ public class Category extends BaseEntity {
 
     private String description;
 
+    private String imgUrl;
+
     @Column(columnDefinition = "boolean default false")
     private Boolean isDeleted;
 

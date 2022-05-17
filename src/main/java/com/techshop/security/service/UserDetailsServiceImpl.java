@@ -29,10 +29,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Username is not existed.");
 
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority(user.get().getRole().getName()));
+        if(user.get().getRole() == null)
+            authorities.add(new SimpleGrantedAuthority("CUSTOMER"));
+        else
+          authorities.add(new SimpleGrantedAuthority(user.get().getRole().getName()));
 
         return new UserDetailsDto(username, user.get().getPassword(), authorities);
-//        return new UserDetailsDto(username, user.get().getPassword());
+
     }
 
     private Set<GrantedAuthority> getAuthorities(Set<Role> roles) {
