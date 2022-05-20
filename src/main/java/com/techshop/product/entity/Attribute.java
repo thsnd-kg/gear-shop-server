@@ -10,13 +10,15 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attribute extends BaseEntity {
+public class Attribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attribute_id")
@@ -24,16 +26,9 @@ public class Attribute extends BaseEntity {
     
     private String attributeName;
 
-    @Column(name = "category_id")
-    private Long categoryId;
-
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "category_id",
-            insertable = false,
-            updatable = false,
-            nullable = false)
-    private Category category;
+    @ManyToMany(mappedBy = "attributes")
+    private Collection<Category> categories = new ArrayList<>();;
 
     private String attributeIcon;
 }

@@ -15,4 +15,5 @@ public class BrandDto {
     @NotBlank
     private String brandName;
     private String brandDesc;
+    private String imgUrl;
 }

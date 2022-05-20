@@ -30,9 +30,7 @@ public class Brand extends BaseEntity {
     private String imgUrl;
     private String brandDesc;
 
-    @NotNull
-    @Column(columnDefinition = "boolean default false")
-    private Boolean isDeleted = false ;
+    private String isActive = "Y" ;
 
     @JsonIgnore
     @OneToMany(  mappedBy = "brand")

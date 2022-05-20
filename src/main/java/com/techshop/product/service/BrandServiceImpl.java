@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService{
 
     @Override
     public List<Brand> getBrandsActive() {
-        return repo.findByIsDeletedFalse();
+        return repo.findByIsActive("Y");
     }
 
     @Override
@@ -56,7 +56,7 @@ public class BrandServiceImpl implements BrandService{
             throw new IllegalStateException("Brand does not exist");
 
         Brand brand = repo.getById(brandId);
-        brand.setIsDeleted(true);
+        brand.setIsActive("D");
         repo.save(brand);
         return true;
     }
@@ -80,11 +80,17 @@ public class BrandServiceImpl implements BrandService{
         }
 
         if(dto.getBrandName() != null)
-            brand.setName(dto.getBrandName());
+            brand.setBrandName(dto.getBrandName());
 
         if(dto.getBrandDesc() !=null) {
-            brand.setDescription(dto.getBrandDesc());
+            brand.setBrandDesc(dto.getBrandDesc());
         }
+
+        if(dto.getImgUrl() !=null) {
+            brand.setImgUrl(dto.getImgUrl());
+        }
+
+
 
         return  brand;
     }

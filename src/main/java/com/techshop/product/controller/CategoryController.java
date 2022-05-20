@@ -2,6 +2,7 @@ package com.techshop.product.controller;
 
 
 import com.techshop.common.ResponseHandler;
+import com.techshop.product.dto.AttributeDto;
 import com.techshop.product.dto.CategoryDto;
 import com.techshop.product.entity.Category;
 import com.techshop.product.service.CategoryService;
@@ -11,7 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
@@ -79,4 +82,15 @@ public class CategoryController {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping(path = "/remove-attributes")
+    public Object removeAttributes(@RequestBody CategoryDto dto) {
+        try {
+            return ResponseHandler.getResponse( service.removeAttributes(dto),  HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 }
