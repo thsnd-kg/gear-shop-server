@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Long> {
-    List<Brand> findByIsDeletedFalse();
+    List<Brand> findByIsActive(String isAtive);
 }

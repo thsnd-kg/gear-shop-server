@@ -30,12 +30,11 @@ public class Category extends BaseEntity {
     @NotBlank
     private String categoryName;
 
-    private String description;
+    private String categoryDesc;
 
     private String imgUrl;
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean isDeleted;
+    private String isActive = "Y";
 
     @JsonIgnore
     @OneToMany(mappedBy = "category")
@@ -50,6 +49,21 @@ public class Category extends BaseEntity {
     @OneToMany(mappedBy = "parent")
     private Collection<Category> children;
 
-    @OneToMany(mappedBy = "category")
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "category_attribute",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "attribute_id")
+    )
     private Collection<Attribute> attributes = new ArrayList<>();
+
+    public void addAttribute(Attribute attribute){
+        attributes.add(attribute);
+        attribute.getCategories().add(this);
+    }
+
+    public void removeAttribute(Attribute attribute){
+        attributes.remove(attribute);
+        attribute.getCategories().remove(this);
+    }
 }

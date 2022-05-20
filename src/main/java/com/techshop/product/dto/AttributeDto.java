@@ -10,8 +10,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class AttributeDto {
     private Long attributeId;
+    private String attributeIcon;
 
     @NotNull
     @NotEmpty
     private String attributeName;
+
+
 }

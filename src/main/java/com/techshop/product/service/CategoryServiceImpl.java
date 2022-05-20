@@ -1,6 +1,7 @@
 package com.techshop.product.service;
 
 
+import com.techshop.product.dto.AttributeDto;
 import com.techshop.product.dto.CategoryDto;
 import com.techshop.product.entity.Attribute;
 import com.techshop.product.entity.Category;
@@ -29,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<Category> getCategoriesActive() {
-        return repo.findByIsDeletedFalse();
+        return repo.findByIsActive("Y");
     }
 
     @Override
@@ -47,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService{
             throw new IllegalStateException("Category does not exist");
 
         Category category = repo.getById(categoryId);
-        category.setIsDeleted(true);
+        category.setIsActive("D");
         repo.save(category);
         return true;
     }
@@ -55,10 +56,14 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public Category createCategory(CategoryDto dto) {
         Category category = handleData(dto, false);
-        category = repo.save(category);
-        List<Attribute> attributes = attributeService.addAttributesToCategory(category.getCategoryId(), dto.getAttributes());
-        category.setAttributes(attributes);
-        return category;
+
+//        List<Attribute> attributes = attributeService.addAttributesToCategory(category.getCategoryId(), dto.getAttributes());
+        dto.getAttributes().forEach(attribute -> {
+            Attribute addedAttribute = attributeService.getById(attribute.getAttributeId());
+            category.addAttribute(addedAttribute);
+        });
+
+        return repo.save(category);
     }
 
     @Override
@@ -75,6 +80,18 @@ public class CategoryServiceImpl implements CategoryService{
         return false;
     }
 
+    @Override
+    public boolean removeAttributes(CategoryDto dto) {
+        Category category = getCategoryById(dto.getCategoryId());
+
+        dto.getAttributes().forEach(attribute -> {
+            Attribute removedAttribute = attributeService.getById(attribute.getAttributeId());
+            category.removeAttribute(removedAttribute);
+        });
+        repo.save(category);
+        return true;
+    }
+
     public Category handleData(CategoryDto dto, boolean hasId){
         Category category = new Category();
 
@@ -89,8 +106,8 @@ public class CategoryServiceImpl implements CategoryService{
         if(dto.getCategoryName() != null)
             category.setCategoryName(dto.getCategoryName());
 
-        if(dto.getDescription() !=null) {
-            category.setDescription(dto.getDescription());
+        if(dto.getCategoryDesc() !=null) {
+            category.setCategoryDesc(dto.getCategoryDesc());
         }
 
         if(dto.getParentId() != null) {

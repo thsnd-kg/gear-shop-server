@@ -1,5 +1,6 @@
 package com.techshop.product.service;
 
+import com.techshop.product.dto.AttributeDto;
 import com.techshop.product.dto.CategoryDto;
 import com.techshop.product.entity.Category;
 
@@ -13,4 +14,6 @@ public interface CategoryService {
     Category createCategory(CategoryDto dto);
     Category updateCategory(CategoryDto updatedCategory);
     boolean isExisted(Long categoryId);
+
+    boolean removeAttributes(CategoryDto dto);
 }

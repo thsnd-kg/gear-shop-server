@@ -1,16 +1,11 @@
 package com.techshop.product.service;
 
 import com.techshop.product.dto.BrandDto;
-import com.techshop.product.dto.CategoryDto;
-import com.techshop.product.dto.ProductDto;
 import com.techshop.product.entity.Brand;
-import com.techshop.product.entity.Category;
-import com.techshop.product.entity.Product;
 import com.techshop.product.repository.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +26,7 @@ public class BrandServiceImpl implements BrandService{
 
     @Override
     public List<Brand> getBrandsActive() {
-        return repo.findByIsDeletedFalse();
+        return repo.findByIsActive("Y");
     }
 
     @Override
@@ -61,7 +56,7 @@ public class BrandServiceImpl implements BrandService{
             throw new IllegalStateException("Brand does not exist");
 
         Brand brand = repo.getById(brandId);
-        brand.setIsDeleted(true);
+        brand.setIsActive("D");
         repo.save(brand);
         return true;
     }
@@ -84,12 +79,18 @@ public class BrandServiceImpl implements BrandService{
                 brand = repo.getById(dto.getBrandId());
         }
 
-        if(dto.getName() != null)
-            brand.setName(dto.getName());
+        if(dto.getBrandName() != null)
+            brand.setBrandName(dto.getBrandName());
 
-        if(dto.getDescription() !=null) {
-            brand.setDescription(dto.getDescription());
+        if(dto.getBrandDesc() !=null) {
+            brand.setBrandDesc(dto.getBrandDesc());
         }
+
+        if(dto.getImgUrl() !=null) {
+            brand.setImgUrl(dto.getImgUrl());
+        }
+
+
 
         return  brand;
     }

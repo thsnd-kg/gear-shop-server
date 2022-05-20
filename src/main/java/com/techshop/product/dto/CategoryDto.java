@@ -18,7 +18,7 @@ public class CategoryDto {
     @NotBlank
     private String categoryName;
 
-    private String description;
+    private String categoryDesc;
     private Long parentId;
 
     private List<AttributeDto> attributes = new ArrayList<>();
