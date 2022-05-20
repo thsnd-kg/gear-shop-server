@@ -1,16 +1,11 @@
 package com.techshop.product.service;
 
 import com.techshop.product.dto.BrandDto;
-import com.techshop.product.dto.CategoryDto;
-import com.techshop.product.dto.ProductDto;
 import com.techshop.product.entity.Brand;
-import com.techshop.product.entity.Category;
-import com.techshop.product.entity.Product;
 import com.techshop.product.repository.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,11 +79,11 @@ public class BrandServiceImpl implements BrandService{
                 brand = repo.getById(dto.getBrandId());
         }
 
-        if(dto.getName() != null)
-            brand.setName(dto.getName());
+        if(dto.getBrandName() != null)
+            brand.setName(dto.getBrandName());
 
-        if(dto.getDescription() !=null) {
-            brand.setDescription(dto.getDescription());
+        if(dto.getBrandDesc() !=null) {
+            brand.setDescription(dto.getBrandDesc());
         }
 
         return  brand;

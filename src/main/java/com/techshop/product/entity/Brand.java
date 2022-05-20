@@ -25,10 +25,10 @@ public class Brand extends BaseEntity {
     private Long brandId;
 
     @NotBlank
-    private String name;
+    private String brandName;
 
     private String imgUrl;
-    private String description;
+    private String brandDesc;
 
     @NotNull
     @Column(columnDefinition = "boolean default false")

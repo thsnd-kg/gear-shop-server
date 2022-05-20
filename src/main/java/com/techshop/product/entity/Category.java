@@ -30,7 +30,7 @@ public class Category extends BaseEntity {
     @NotBlank
     private String categoryName;
 
-    private String description;
+    private String categoryDesc;
 
     private String imgUrl;
 

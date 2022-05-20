@@ -13,6 +13,6 @@ public class BrandDto {
 
     @NotEmpty
     @NotBlank
-    private String name;
-    private String description;
+    private String brandName;
+    private String brandDesc;
 }
