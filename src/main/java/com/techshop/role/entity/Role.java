@@ -28,8 +28,7 @@ public class Role extends BaseEntity {
 	
 	private String description;
 
-	@Column(columnDefinition = "varchar(1) default 'Y'")
-	private String activeFlag;
+	private String activeFlag = "Y";
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "role")
