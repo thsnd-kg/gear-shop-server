@@ -1,12 +1,15 @@
 package com.techshop.product.service;
 
+import com.techshop.product.dto.ProductDetailDto;
 import com.techshop.product.dto.ProductDto;
 import com.techshop.product.entity.Brand;
 import com.techshop.product.entity.Category;
 import com.techshop.product.entity.Product;
+import com.techshop.product.entity.Variant;
 import com.techshop.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +25,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     private CategoryService cateService;
+
+    @Autowired
+    private VariantService variantService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<Product> getProducts() {
@@ -67,6 +76,7 @@ public class ProductServiceImpl implements ProductService{
 
 
 
+
     public Product handleData(ProductDto dto, boolean hasId){
         Product product = new Product();
 
@@ -94,5 +104,17 @@ public class ProductServiceImpl implements ProductService{
             product.setImgUrl(dto.getImgUrl());
 
         return  product;
+    }
+
+
+    /* */
+    @Override
+    public ProductDetailDto getVariantsByProductId(Long productId) {
+        ProductDetailDto response = new ProductDetailDto();
+        Product product = getProductById(productId);
+        List<Variant> variants = variantService.getByProductId(productId);
+        response = modelMapper.map(product, ProductDetailDto.class);
+        response.setVariants(variants);
+        return response;
     }
 }

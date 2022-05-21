@@ -7,13 +7,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 @FieldsValueMatch(
         field = "newPassword",
         fieldMatch = "confirmPassword",
-        message = "Confirm password does not match!"
+        message = "Passwords do not match!"
 )
 public class ChangePasswordDto {
-    private String username;
     private String oldPassword;
     private String newPassword;
     private String confirmPassword;
