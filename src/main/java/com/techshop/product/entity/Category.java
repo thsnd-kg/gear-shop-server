@@ -34,7 +34,7 @@ public class Category extends BaseEntity {
 
     private String imgUrl;
 
-    private String isActive = "Y";
+    private String activeFlag = "Y";
 
     @JsonIgnore
     @OneToMany(mappedBy = "category")
