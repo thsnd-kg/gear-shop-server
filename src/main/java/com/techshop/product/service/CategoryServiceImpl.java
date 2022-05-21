@@ -110,6 +110,10 @@ public class CategoryServiceImpl implements CategoryService{
             category.setCategoryDesc(dto.getCategoryDesc());
         }
 
+        if(dto.getImgUrl() !=null) {
+            category.setImgUrl(dto.getImgUrl());
+        }
+
         if(dto.getParentId() != null) {
             if(!isExisted(dto.getParentId()))
                 throw new IllegalStateException("Parent does not exist");

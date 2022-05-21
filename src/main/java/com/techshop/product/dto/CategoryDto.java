@@ -20,6 +20,7 @@ public class CategoryDto {
 
     private String categoryDesc;
     private Long parentId;
+    private String imgUrl;
 
     private List<AttributeDto> attributes = new ArrayList<>();
 }
