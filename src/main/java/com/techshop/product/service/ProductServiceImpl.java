@@ -1,7 +1,7 @@
 package com.techshop.product.service;
 
-import com.techshop.product.dto.ProductDetailDto;
-import com.techshop.product.dto.ProductDto;
+import com.techshop.product.dto.product.ProductDetailDto;
+import com.techshop.product.dto.product.ProductDto;
 import com.techshop.product.entity.Brand;
 import com.techshop.product.entity.Category;
 import com.techshop.product.entity.Product;
