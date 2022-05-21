@@ -41,7 +41,7 @@ public class CategoryController {
 
             return service.getCategoryById(categoryId);
         }catch (Exception e){
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -49,11 +49,11 @@ public class CategoryController {
     public Object createCategory(@Valid @RequestBody CategoryDto newCategory, BindingResult errors) {
         try {
             if(errors.hasErrors())
-                return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+                return ResponseHandler.getResponse(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 
             return ResponseHandler.getResponse(service.createCategory(newCategory), HttpStatus.OK);
         }catch (Exception e){
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -63,11 +63,11 @@ public class CategoryController {
         try{
             Category category = service.updateCategory(updatedCategory);
             if(category == null)
-                return ResponseHandler.getResponse(HttpStatus.BAD_REQUEST);
+                return ResponseHandler.getResponse(HttpStatus.INTERNAL_SERVER_ERROR);
 
             return ResponseHandler.getResponse(category, HttpStatus.OK);
         }catch(Exception e){
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -79,7 +79,7 @@ public class CategoryController {
                 throw new IllegalStateException("Category Id must not be null");
             return ResponseHandler.getResponse(service.deleteCategory(categoryId), HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -88,7 +88,7 @@ public class CategoryController {
         try {
             return ResponseHandler.getResponse( service.removeAttributes(dto),  HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

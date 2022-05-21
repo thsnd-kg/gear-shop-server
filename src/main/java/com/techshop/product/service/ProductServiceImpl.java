@@ -25,36 +25,47 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getProducts() {
+        return repo.findByActiveFlag("Y");
+    }
+
+    @Override
+    public List<Product> getAll() {
         return repo.findAll();
     }
 
     @Override
     public Product getProductById(Long id) {
-        return repo.getById(id);
+        Optional<Product> product = repo.findById(id);
+        if(!product.isPresent() )
+            throw new IllegalStateException("Product with productId " + id +" is not existed");
+
+        if(product.get().getActiveFlag().equals("D"))
+            throw new IllegalStateException("Product with productId " + id +" is deleted");
+
+        return product.get();
     }
 
     @Override
     public Product createProduct(ProductDto dto) {
         Product product = handleData(dto, false);
-        if(product == null)
-            return null;
-
         return repo.save(product);
     }
 
     @Override
     public Product updateProduct(ProductDto dto) {
         Product product = handleData(dto, true);
-        if(product == null)
-            return null;
-
         return repo.save(product);
     }
 
     @Override
-    public Boolean deteleProduct(Long productId) {
-        return null;
+    public Boolean deleteProduct(Long productId) {
+        Product product = getProductById(productId);
+        product.setActiveFlag("D");
+        repo.save(product);
+        return true;
     }
+
+
 
     public Product handleData(ProductDto dto, boolean hasId){
         Product product = new Product();
@@ -62,29 +73,25 @@ public class ProductServiceImpl implements ProductService{
         if(hasId)
             product = repo.getById(dto.getProductId());
 
-        if(product == null)
-            return null;
 
         if(dto.getBrandId() != null) {
             Brand brand = brandService.getBrandById(dto.getBrandId());
-
-            if (brand != null)
-                product.setBrand(brand);
-            else
-                return null;
+            product.setBrand(brand);
         }
 
         if(dto.getCategoryId() != null) {
             Category category = cateService.getCategoryById(dto.getCategoryId());
-
-            if (category != null)
-                product.setCategory(category);
-            else
-                return null;
+            product.setCategory(category);
         }
 
         if(dto.getProductName() != null)
             product.setProductName(dto.getProductName());
+
+        if(dto.getProductDesc() != null)
+            product.setProductDesc(dto.getProductDesc());
+
+        if(dto.getImgUrl() != null)
+            product.setImgUrl(dto.getImgUrl());
 
         return  product;
     }

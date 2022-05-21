@@ -17,34 +17,53 @@ import java.util.Map;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/products")
 public class ProductController {
     @Autowired
     private  ProductService productService;
 
     @GetMapping
-    public Object getProducts() {
-        return ResponseHandler.getResponse(productService.getProducts(), HttpStatus.OK);
+    public Object getProducts(@RequestParam(value = "onlyActive") Boolean isActive) {
+        if(isActive)
+            return ResponseHandler.getResponse(productService.getProducts(), HttpStatus.OK);
+
+        return ResponseHandler.getResponse(productService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{product-id}")
     public Object getProductById(@PathVariable("product-id") Long productId){
-        return ResponseHandler.getResponse(productService.getProductById(productId), HttpStatus.OK);
+        try{
+            return ResponseHandler.getResponse(productService.getProductById(productId), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PostMapping
     public Object createProduct(@Valid @RequestBody ProductDto newProduct, BindingResult errors){
-        if(errors.hasErrors())
-            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
-
-        return ResponseHandler.getResponse(productService.createProduct(newProduct), HttpStatus.OK);
+        try{
+            return ResponseHandler.getResponse(productService.createProduct(newProduct), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping
     public Object updateProduct(@RequestBody ProductDto updatedProduct, BindingResult errors){
-        if(errors.hasErrors())
-            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+        try{
+            return ResponseHandler.getResponse(productService.updateProduct(updatedProduct), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-        return ResponseHandler.getResponse(productService.updateProduct(updatedProduct), HttpStatus.OK);
+    @DeleteMapping("/{product-id}")
+    public Object deleteProduct(@PathVariable("product-id") Long productId){
+        try{
+            return ResponseHandler.getResponse(productService.deleteProduct(productId), HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
