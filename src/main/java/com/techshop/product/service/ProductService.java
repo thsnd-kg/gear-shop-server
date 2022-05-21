@@ -1,5 +1,6 @@
 package com.techshop.product.service;
 
+import com.techshop.product.dto.ProductDetailDto;
 import com.techshop.product.dto.ProductDto;
 import com.techshop.product.entity.Product;
 
@@ -12,4 +13,5 @@ public interface ProductService {
     Product createProduct(ProductDto dto);
     Product updateProduct(ProductDto dto);
     Boolean deleteProduct(Long productId);
+    ProductDetailDto getVariantsByProductId(Long productId);
 }

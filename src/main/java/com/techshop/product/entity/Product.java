@@ -5,6 +5,7 @@ import com.techshop.common.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -35,9 +36,13 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private Collection<Variant> variants = new ArrayList<>();
 
 }
