@@ -9,7 +9,7 @@ import com.techshop.product.entity.Variant;
 import com.techshop.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.modelmapper.ModelMapper;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +29,7 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     private VariantService variantService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+
 
     @Override
     public List<Product> getProducts() {
@@ -112,8 +111,14 @@ public class ProductServiceImpl implements ProductService{
     public ProductDetailDto getVariantsByProductId(Long productId) {
         ProductDetailDto response = new ProductDetailDto();
         Product product = getProductById(productId);
+
+        response.setProductDesc(product.getProductDesc());
+        response.setProductName(product.getProductName());
+        response.setProductId(product.getProductId());
+        response.setCategory(product.getCategory());
+        response.setBrand(product.getBrand());
+
         List<Variant> variants = variantService.getByProductId(productId);
-        response = modelMapper.map(product, ProductDetailDto.class);
         response.setVariants(variants);
         return response;
     }
