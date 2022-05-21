@@ -114,7 +114,7 @@ public class UserController {
     }
 
     @PostMapping("/profile/me/change-password")
-    public Object changePassword(@RequestBody ChangePasswordDto dto, BindingResult errors) {
+    public Object changePassword(@Valid @RequestBody ChangePasswordDto dto, BindingResult errors) {
         try{
             if(errors.hasErrors())
                 return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
