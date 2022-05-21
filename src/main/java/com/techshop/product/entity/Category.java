@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -21,7 +22,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Category extends BaseEntity {
+public class Category extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")

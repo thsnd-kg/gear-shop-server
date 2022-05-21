@@ -5,8 +5,11 @@ import com.techshop.common.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -14,7 +17,7 @@ import java.util.Collection;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product extends BaseEntity {
+public class Product extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -40,9 +43,8 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "product")
+    private Set<Variant> variants = new HashSet<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private Collection<Variant> variants = new ArrayList<>();
 
 }

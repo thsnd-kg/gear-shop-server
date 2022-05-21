@@ -1,6 +1,6 @@
 package com.techshop.product.repository;
 
-import com.techshop.product.dto.ProductDetailDto;
+import com.techshop.product.dto.product.ProductDetailDto;
 import com.techshop.product.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

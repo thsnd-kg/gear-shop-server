@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
@@ -18,7 +19,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Brand extends BaseEntity {
+public class Brand extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "brand_id")

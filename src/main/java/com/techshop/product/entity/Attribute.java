@@ -10,15 +10,18 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attribute {
+public class Attribute implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attribute_id")
@@ -31,4 +34,9 @@ public class Attribute {
     private Collection<Category> categories = new ArrayList<>();;
 
     private String attributeIcon;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "attribute")
+    private Set<VariantAttribute> variants = new HashSet<>();
 }

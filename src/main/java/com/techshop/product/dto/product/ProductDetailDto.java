@@ -1,4 +1,4 @@
-package com.techshop.product.dto;
+package com.techshop.product.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techshop.product.entity.Brand;
