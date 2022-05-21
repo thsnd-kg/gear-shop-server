@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<Category> getCategoriesActive() {
-        return repo.findByIsActive("Y");
+        return repo.findByActiveFlag("Y");
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService{
             throw new IllegalStateException("Category does not exist");
 
         Category category = repo.getById(categoryId);
-        category.setIsActive("D");
+        category.setActiveFlag("D");
         repo.save(category);
         return true;
     }

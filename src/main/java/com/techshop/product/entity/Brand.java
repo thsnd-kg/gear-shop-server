@@ -30,7 +30,7 @@ public class Brand extends BaseEntity {
     private String imgUrl;
     private String brandDesc;
 
-    private String isActive = "Y" ;
+    private String activeFlag = "Y" ;
 
     @JsonIgnore
     @OneToMany(  mappedBy = "brand")

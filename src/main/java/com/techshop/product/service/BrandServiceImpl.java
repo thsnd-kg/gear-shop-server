@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService{
 
     @Override
     public List<Brand> getBrandsActive() {
-        return repo.findByIsActive("Y");
+        return repo.findByActiveFlag("Y");
     }
 
     @Override
@@ -56,7 +56,7 @@ public class BrandServiceImpl implements BrandService{
             throw new IllegalStateException("Brand does not exist");
 
         Brand brand = repo.getById(brandId);
-        brand.setIsActive("D");
+        brand.setActiveFlag("D");
         repo.save(brand);
         return true;
     }
