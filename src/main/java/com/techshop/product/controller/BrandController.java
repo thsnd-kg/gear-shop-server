@@ -38,7 +38,7 @@ public class BrandController {
 
             return ResponseHandler.getResponse(service.getBrandById(brandId), HttpStatus.OK);
         } catch (Exception e){
-             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+             return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -46,11 +46,11 @@ public class BrandController {
     public Object createBrand(@Valid @RequestBody BrandDto newBrand, BindingResult errors){
         try{
             if(errors.hasErrors())
-                return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+                return ResponseHandler.getResponse(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 
             return ResponseHandler.getResponse(service.createBrand(newBrand), HttpStatus.OK);
         }catch (Exception e){
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -59,11 +59,11 @@ public class BrandController {
     public Object updateBrand(@RequestBody BrandDto updatedBrand, BindingResult errors){
         try{
             if(errors.hasErrors())
-                return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+                return ResponseHandler.getResponse(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 
             return ResponseHandler.getResponse(service.updateBrand(updatedBrand), HttpStatus.OK);
         }catch (Exception e){
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -75,7 +75,7 @@ public class BrandController {
 
             return ResponseHandler.getResponse(service.deleteBrand(brandId), HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

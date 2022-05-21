@@ -24,9 +24,17 @@ public class Product extends BaseEntity {
             unique = true)
     private String productName;
 
+    @Column(name = "product_desc")
+    private String productDesc;
+
+    private String imgUrl;
+    @Column(columnDefinition = ("varchar(1) default 'Y'"))
+    private String activeFlag = "Y";
+
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
 
     @ManyToOne
     @JoinColumn(name = "category_id")
