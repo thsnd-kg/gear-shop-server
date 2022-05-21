@@ -25,11 +25,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     private CategoryService cateService;
-
-    @Autowired
-    private VariantService variantService;
-
-
+    
 
     @Override
     public List<Product> getProducts() {
