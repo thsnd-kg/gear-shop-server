@@ -47,15 +47,15 @@ public class ProductController {
 
     }
 
-    @GetMapping(path = "/{product-id}/variants")
-    public Object getProductDetail(@PathVariable("product-id") Long productId){
-        try{
-            return ResponseHandler.getResponse(productService.getVariantsByProductId(productId), HttpStatus.OK);
-        }catch (Exception e){
-            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
+//    @GetMapping(path = "/{product-id}/variants")
+//    public Object getProductDetail(@PathVariable("product-id") Long productId){
+//        try{
+//            return ResponseHandler.getResponse(productService.getVariantsByProductId(productId), HttpStatus.OK);
+//        }catch (Exception e){
+//            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//    }
 
 //    @GetMapping(path = "/{product-id}/variants/{variant-id}")
 //    public Object getVariantDetail(@PathVariable("product-id" ) Long productId, @PathVariable("variant-id") Long variantId){

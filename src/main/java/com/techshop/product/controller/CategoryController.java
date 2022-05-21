@@ -2,17 +2,14 @@ package com.techshop.product.controller;
 
 
 import com.techshop.common.ResponseHandler;
-import com.techshop.product.dto.AttributeDto;
 import com.techshop.product.dto.CategoryDto;
 import com.techshop.product.entity.Category;
 import com.techshop.product.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @CrossOrigin
 @RestController
