@@ -1,9 +1,6 @@
 package com.techshop.product.service;
 
-import com.techshop.product.dto.AttributeDto;
-import com.techshop.product.dto.CategoryDto;
 import com.techshop.product.entity.Attribute;
-import com.techshop.product.entity.Category;
 import com.techshop.product.repository.AttributeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

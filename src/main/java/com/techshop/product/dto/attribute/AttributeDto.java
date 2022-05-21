@@ -1,4 +1,4 @@
-package com.techshop.product.dto;
+package com.techshop.product.dto.attribute;
 
 import com.techshop.product.entity.Variant;
 import com.techshop.product.entity.VariantAttribute;

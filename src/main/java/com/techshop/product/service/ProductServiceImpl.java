@@ -107,19 +107,20 @@ public class ProductServiceImpl implements ProductService{
 
 
     /* */
-    @Override
-    public ProductDetailDto getVariantsByProductId(Long productId) {
-        ProductDetailDto response = new ProductDetailDto();
-        Product product = getProductById(productId);
-
-        response.setProductDesc(product.getProductDesc());
-        response.setProductName(product.getProductName());
-        response.setProductId(product.getProductId());
-        response.setCategory(product.getCategory());
-        response.setBrand(product.getBrand());
-
-        List<Variant> variants = variantService.getByProductId(productId);
-        response.setVariants(variants);
-        return response;
-    }
+//    @Override
+//    public ProductDetailDto getVariantsByProductId(Long productId) {
+////        ProductDetailDto response = new ProductDetailDto();
+////        Product product = getProductById(productId);
+////
+////        response.setProductDesc(product.getProductDesc());
+////        response.setProductName(product.getProductName());
+////        response.setProductId(product.getProductId());
+////        response.setCategory(product.getCategory());
+////        response.setBrand(product.getBrand());
+////
+//////        List<Variant> variants = variantService.getByProductId(productId);
+////        response.setVariants(variants);
+////        return response;
+//        return repo.findByActiveFlag("Y")
+//    }
 }

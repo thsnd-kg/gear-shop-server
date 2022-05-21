@@ -1,7 +1,6 @@
 package com.techshop.product.service;
 
 
-import com.techshop.product.dto.AttributeDto;
 import com.techshop.product.dto.CategoryDto;
 import com.techshop.product.entity.Attribute;
 import com.techshop.product.entity.Category;

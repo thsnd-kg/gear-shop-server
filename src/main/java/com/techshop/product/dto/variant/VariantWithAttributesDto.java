@@ -1,5 +1,5 @@
 package com.techshop.product.dto.variant;
-import com.techshop.product.dto.AttributeDto;
+import com.techshop.product.dto.attribute.AttributeDto;
 import com.techshop.product.entity.Variant;
 import lombok.Getter;
 import java.util.ArrayList;

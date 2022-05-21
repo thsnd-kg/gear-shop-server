@@ -1,6 +1,6 @@
 package com.techshop.product.dto;
 
-import com.techshop.product.entity.Attribute;
+import com.techshop.product.dto.attribute.AttributeDto;
 import lombok.Getter;
 import lombok.Setter;
 
