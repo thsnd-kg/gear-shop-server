@@ -6,16 +6,14 @@ import lombok.Setter;
 
 import java.util.List;
 
-
 @Getter
 @Setter
-public class CreateVariantDto {
-    private Long productId;
+public class UpdateVariantDto {
+    private Long variantId;
     private String sku;
     private String variantName;
     private String variantDesc;
     private Long price;
     private String imgUrl;
     private List<UpdateVariantAttributeDto> attributes;
-
 }

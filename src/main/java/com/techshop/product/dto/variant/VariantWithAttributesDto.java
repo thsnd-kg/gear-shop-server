@@ -14,6 +14,7 @@ public class VariantWithAttributesDto {
     private String variantName;
     private String variantDesc;
     private Long price;
+    private String imgUrl;
     private List<AttributeDto> attributes;
 
     public VariantWithAttributesDto(Variant variant){
@@ -21,6 +22,7 @@ public class VariantWithAttributesDto {
         this.sku = variant.getSku();
         this.variantName = variant.getVariantName();
         this.variantDesc = variant.getVariantDesc();
+        this.imgUrl = variant.getImgUrl();
         this.price = variant.getPrice();
         this.attributes = variant.getAttributes().isEmpty() ? new ArrayList<>() :  variant.getAttributes().stream().map(AttributeDto::new).collect(Collectors.toList());
     }
