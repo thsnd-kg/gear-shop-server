@@ -1,15 +1,20 @@
 package com.techshop.product.service;
 
+import com.techshop.product.converter.VariantConverter;
 import com.techshop.product.dto.attribute.UpdateVariantAttributeDto;
 import com.techshop.product.dto.variant.CreateVariantDto;
 import com.techshop.product.dto.variant.UpdateVariantDto;
+import com.techshop.product.dto.variant.VariantWithAttributesDto;
 import com.techshop.product.entity.Attribute;
 import com.techshop.product.entity.Product;
 import com.techshop.product.entity.Variant;
 import com.techshop.product.entity.VariantAttribute;
 import com.techshop.product.repository.VariantRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,21 +26,34 @@ public class VariantServiceImpl  implements VariantService{
     private AttributeService attributeService;
     private VariantAttributeService variantAttributeService;
 
+    @Autowired
+    private VariantConverter converter;
+
     public VariantServiceImpl(VariantRepository repository, ProductService productService, AttributeService attributeService,  VariantAttributeService variantAttributeService){
         this.repository = repository;
         this.productService = productService;
         this.attributeService = attributeService;
         this.variantAttributeService= variantAttributeService;
+
     }
 
     @Override
-    public List<Variant> getByProductId(Long productId) {
-        return repository.findByProductId(productId);
+    public List<VariantWithAttributesDto> getByProductId(Long productId) {
+        List<Variant> variants = repository.findByProductIdAndActiveFlag(productId, "Y");
+//        Variant variant = repository.findById(1L).get();
+
+        List<VariantWithAttributesDto> result = new ArrayList<>();
+        variants.forEach(variant -> {
+            result.add(converter.toVariantWithAttributes(variant));
+        });
+
+        return result;
     }
 
 
     @Override
-    public Variant createVariant(CreateVariantDto dto) {
+    @Transactional
+    public void createVariant(CreateVariantDto dto) {
         Product product = productService.getProductById(dto.getProductId());
 
         Variant variant = new Variant();
@@ -54,15 +72,15 @@ public class VariantServiceImpl  implements VariantService{
             variantAttribute.setAttribute(attribute);
             variantAttribute.setDescription(createAttribute.getDescription());
             variantAttribute.setValue(createAttribute.getValue());
-
             variant.getAttributes().add(variantAttribute);
         }
 
-        return repository.save(variant);
+        repository.save(variant);
+
     }
 
     @Override
-    public Variant updateVariant(UpdateVariantDto dto) {
+    public void updateVariant(UpdateVariantDto dto) {
         Variant variant = getById(dto.getVariantId());
         variant.getAttributes().clear();
 
@@ -81,7 +99,8 @@ public class VariantServiceImpl  implements VariantService{
             variant.getAttributes().add(variantAttribute);
         }
 
-        return repository.save(variant);
+        repository.save(variant);
+
     }
 
     @Override
@@ -91,6 +110,19 @@ public class VariantServiceImpl  implements VariantService{
             throw new IllegalStateException("Variant with ID: " + variantId + " is not existed");
 
         return variant.get();
+    }
+
+    @Override
+    public VariantWithAttributesDto getVariantDetailById(Long variantId) {
+        Variant variant = getById(variantId);
+        return converter.toVariantWithAttributes(variant);
+    }
+
+    @Override
+    public void deleteVariant(Long variantId) {
+        Variant variant = getById(variantId);
+        variant.setActiveFlag("D");
+        repository.save(variant);
     }
 
 

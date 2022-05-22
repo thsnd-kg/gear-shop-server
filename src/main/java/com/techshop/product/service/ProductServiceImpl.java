@@ -1,7 +1,9 @@
 package com.techshop.product.service;
 
+import com.techshop.product.converter.ProductConverter;
 import com.techshop.product.dto.product.ProductDetailDto;
 import com.techshop.product.dto.product.ProductDto;
+import com.techshop.product.dto.product.ProductWithVariantDto;
 import com.techshop.product.entity.Brand;
 import com.techshop.product.entity.Category;
 import com.techshop.product.entity.Product;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +28,19 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     private CategoryService cateService;
+
+    @Autowired
+    private ProductConverter converter;
     
 
     @Override
-    public List<Product> getProducts() {
-        return repo.findByActiveFlag("Y");
+    public List<ProductWithVariantDto> getProducts() {
+        List<Product> products = repo.findByActiveFlag("Y");
+        List<ProductWithVariantDto> result = new ArrayList<>();
+
+        products.forEach(product -> result.add(converter.toProductWithVariant(product)));
+
+        return result;
     }
 
     @Override
@@ -50,15 +61,17 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product createProduct(ProductDto dto) {
+    public ProductWithVariantDto createProduct(ProductDto dto) {
         Product product = handleData(dto, false);
-        return repo.save(product);
+        Product result = repo.save(product);
+        return converter.toProductWithVariant(result);
     }
 
     @Override
-    public Product updateProduct(ProductDto dto) {
+    public ProductWithVariantDto updateProduct(ProductDto dto) {
         Product product = handleData(dto, true);
-        return repo.save(product);
+        Product result = repo.save(product);
+        return converter.toProductWithVariant(result);
     }
 
     @Override
@@ -69,7 +82,11 @@ public class ProductServiceImpl implements ProductService{
         return true;
     }
 
-
+    @Override
+    public ProductWithVariantDto getProductDetailById(Long productId) {
+        Product product = getProductById(productId);
+        return converter.toProductWithVariant(product);
+    }
 
 
     public Product handleData(ProductDto dto, boolean hasId){

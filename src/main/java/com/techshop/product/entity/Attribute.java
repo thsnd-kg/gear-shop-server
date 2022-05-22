@@ -37,6 +37,6 @@ public class Attribute implements Serializable {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "attribute")
+    @OneToMany(mappedBy = "attribute", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<VariantAttribute> variants = new HashSet<>();
 }

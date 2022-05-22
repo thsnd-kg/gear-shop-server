@@ -29,7 +29,8 @@ public class ProductController {
     public Object getProducts(@RequestParam(value = "onlyActive") Boolean isActive) {
         if(isActive){
 
-            List<ProductWithVariantDto> products = productService.getProducts().stream().map(ProductWithVariantDto::new).collect(Collectors.toList());
+//            List<ProductWithVariantDto> products = productService.getProducts().stream().map(ProductWithVariantDto::new).collect(Collectors.toList());
+            List<ProductWithVariantDto> products = productService.getProducts();
             return ResponseHandler.getResponse(products, HttpStatus.OK);
         }
 
@@ -39,7 +40,7 @@ public class ProductController {
     @GetMapping(path = "/{product-id}")
     public Object getProductById(@PathVariable("product-id") Long productId){
         try{
-            ProductWithVariantDto product =  new ProductWithVariantDto(productService.getProductById(productId));
+            ProductWithVariantDto product = productService.getProductDetailById(productId);
             return ResponseHandler.getResponse(product, HttpStatus.OK);
         }catch (Exception e){
             return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);

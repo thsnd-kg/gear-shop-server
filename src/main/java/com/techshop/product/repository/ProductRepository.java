@@ -10,9 +10,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT p FROM Product p WHERE p.activeFlag = :activeFlag")
+    @Query("SELECT distinct p FROM Product p   WHERE p.activeFlag = :activeFlag ")
     List<Product> findByActiveFlag(String activeFlag);
 
-    @Query("SELECT p FROM Product p WHERE p.activeFlag = 'Y' ")
+    @Query("SELECT p FROM Product p WHERE p.activeFlag = 'Y'  ")
     ProductDetailDto getProductDetail(Long productId);
 }
