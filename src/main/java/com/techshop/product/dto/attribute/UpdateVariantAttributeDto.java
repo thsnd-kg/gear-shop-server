@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateAttributeDto {
+public class UpdateVariantAttributeDto {
     private Long attributeId;
     private String value;
     private String description;
