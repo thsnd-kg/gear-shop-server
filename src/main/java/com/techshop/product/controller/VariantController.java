@@ -57,4 +57,14 @@ public class VariantController {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping("/{variant-id}")
+    public Object deleteVariant(@PathVariable("variant-id") Long variantId){
+        try{
+            service.deleteVariant(variantId);
+            return ResponseHandler.getResponse(HttpStatus.OK);
+        }catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

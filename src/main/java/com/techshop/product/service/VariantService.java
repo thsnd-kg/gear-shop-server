@@ -13,4 +13,6 @@ public interface VariantService {
     void updateVariant(UpdateVariantDto dto);
     Variant getById(Long variantId);
     VariantWithAttributesDto getVariantDetailById(Long variantId);
+
+    void deleteVariant(Long variantId);
 }

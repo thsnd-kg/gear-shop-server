@@ -118,5 +118,12 @@ public class VariantServiceImpl  implements VariantService{
         return converter.toVariantWithAttributes(variant);
     }
 
+    @Override
+    public void deleteVariant(Long variantId) {
+        Variant variant = getById(variantId);
+        variant.setActiveFlag("D");
+        repository.save(variant);
+    }
+
 
 }
