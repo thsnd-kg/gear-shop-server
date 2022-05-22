@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface VariantRepository extends JpaRepository<Variant, Long> {
-    @Query("SELECT v FROM Variant v JOIN v.product p WHERE p.productId = :productId")
-    List<Variant> findByProductId(Long productId);
+    @Query("SELECT v FROM Variant v WHERE v.product.productId = :productId AND v.activeFlag = :activeFlag")
+    List<Variant> findByProductIdAndActiveFlag(Long productId, String activeFlag);
 }

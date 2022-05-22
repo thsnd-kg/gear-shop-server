@@ -43,7 +43,7 @@ public class Variant extends BaseEntity  implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToMany(mappedBy = "variant")
+    @OneToMany(mappedBy = "variant", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<VariantAttribute> attributes = new HashSet<>();
 
 }

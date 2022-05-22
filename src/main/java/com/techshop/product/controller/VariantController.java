@@ -21,14 +21,24 @@ public class VariantController {
         this.service = service;
     }
 
+    @GetMapping("/{variant-id}")
+    public Object getVariantDetailById(@PathVariable("variant-id") Long variantId) {
+        try {
+
+            return ResponseHandler.getResponse(service.getVariantDetailById(variantId), HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping()
     public Object createVariant(@Valid @RequestBody CreateVariantDto dto, BindingResult errors) {
         try {
             if (errors.hasErrors())
                 return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-            VariantWithAttributesDto variant = new VariantWithAttributesDto(service.createVariant(dto));
-            return ResponseHandler.getResponse(variant, HttpStatus.OK);
+            service.createVariant(dto);
+            return ResponseHandler.getResponse( HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
         }
@@ -36,13 +46,13 @@ public class VariantController {
 
 
     @PutMapping()
-    public Object createVariant(@Valid @RequestBody UpdateVariantDto dto, BindingResult errors) {
+    public Object updateVariant(@Valid @RequestBody UpdateVariantDto dto, BindingResult errors) {
         try {
             if (errors.hasErrors())
                 return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
-
-            VariantWithAttributesDto variant = new VariantWithAttributesDto(service.updateVariant(dto));
-            return ResponseHandler.getResponse(variant, HttpStatus.OK);
+//
+            service.updateVariant(dto);
+            return ResponseHandler.getResponse( HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
         }

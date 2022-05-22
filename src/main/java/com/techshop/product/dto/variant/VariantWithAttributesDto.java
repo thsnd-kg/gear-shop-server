@@ -2,11 +2,14 @@ package com.techshop.product.dto.variant;
 import com.techshop.product.dto.attribute.AttributeDto;
 import com.techshop.product.entity.Variant;
 import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Setter
 public class VariantWithAttributesDto {
 
     private Long variantId;
@@ -17,13 +20,14 @@ public class VariantWithAttributesDto {
     private String imgUrl;
     private List<AttributeDto> attributes;
 
-    public VariantWithAttributesDto(Variant variant){
-        this.variantId = variant.getVariantId();
-        this.sku = variant.getSku();
-        this.variantName = variant.getVariantName();
-        this.variantDesc = variant.getVariantDesc();
-        this.imgUrl = variant.getImgUrl();
-        this.price = variant.getPrice();
-        this.attributes = variant.getAttributes().isEmpty() ? new ArrayList<>() :  variant.getAttributes().stream().map(AttributeDto::new).collect(Collectors.toList());
-    }
+//    public VariantWithAttributesDto(Variant variant){
+//
+//        this.variantId = variant.getVariantId();
+//        this.sku = variant.getSku();
+//        this.variantName = variant.getVariantName();
+//        this.variantDesc = variant.getVariantDesc();
+//        this.imgUrl = variant.getImgUrl();
+//        this.price = variant.getPrice();
+//        this.attributes = variant.getAttributes().isEmpty() ? new ArrayList<>() :  variant.getAttributes().stream().map(AttributeDto::new).collect(Collectors.toList());
+//    }
 }
