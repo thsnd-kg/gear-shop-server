@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api")
 public class ProductController {
 
     private  ProductService productService;
@@ -25,10 +25,19 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping
+    @GetMapping("/website/products")
+    public Object getByProductLink(@RequestParam(value = "product-link") String productLink) {
+        try{
+            ProductWithVariantDto products = productService.getByProductLink(productLink);
+            return ResponseHandler.getResponse(products, HttpStatus.OK);
+        } catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/products")
     public Object getProducts(@RequestParam(value = "onlyActive") Boolean isActive) {
         if(isActive){
-
 //            List<ProductWithVariantDto> products = productService.getProducts().stream().map(ProductWithVariantDto::new).collect(Collectors.toList());
             List<ProductWithVariantDto> products = productService.getProducts();
             return ResponseHandler.getResponse(products, HttpStatus.OK);
@@ -37,7 +46,7 @@ public class ProductController {
         return ResponseHandler.getResponse(productService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{product-id}")
+    @GetMapping(path = "/products/{product-id}")
     public Object getProductById(@PathVariable("product-id") Long productId){
         try{
             ProductWithVariantDto product = productService.getProductDetailById(productId);
@@ -68,7 +77,7 @@ public class ProductController {
 //
 //    }
 
-    @PostMapping
+    @PostMapping("/products")
     public Object createProduct(@Valid @RequestBody ProductDto newProduct, BindingResult errors){
         try{
             return ResponseHandler.getResponse(productService.createProduct(newProduct), HttpStatus.OK);
@@ -77,7 +86,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/products")
     public Object updateProduct(@RequestBody ProductDto updatedProduct, BindingResult errors){
         try{
             return ResponseHandler.getResponse(productService.updateProduct(updatedProduct), HttpStatus.OK);
@@ -86,7 +95,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/{product-id}")
+    @DeleteMapping("/products/{product-id}")
     public Object deleteProduct(@PathVariable("product-id") Long productId){
         try{
             return ResponseHandler.getResponse(productService.deleteProduct(productId), HttpStatus.OK);

@@ -31,7 +31,9 @@ public class Product extends BaseEntity implements Serializable {
     @Column(name = "product_desc")
     private String productDesc;
 
+    private String productLink;
     private String imgUrl;
+
     @Column(columnDefinition = ("varchar(1) default 'Y'"))
     private String activeFlag = "Y";
 
