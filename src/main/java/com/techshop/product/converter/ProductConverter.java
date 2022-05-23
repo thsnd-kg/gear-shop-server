@@ -6,6 +6,7 @@ import com.techshop.product.entity.Product;
 import com.techshop.product.entity.Variant;
 import com.techshop.product.service.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 @Component
 public class ProductConverter {
     private VariantService variantService;
-    private ProductConverter(VariantService variantService){
+    private ProductConverter(@Lazy VariantService variantService){
         this.variantService = variantService;
     }
 
