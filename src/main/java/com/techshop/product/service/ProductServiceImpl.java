@@ -1,5 +1,6 @@
 package com.techshop.product.service;
 
+import com.techshop.common.util.StringUtils;
 import com.techshop.product.converter.ProductConverter;
 import com.techshop.product.dto.product.ProductDetailDto;
 import com.techshop.product.dto.product.ProductDto;
@@ -10,6 +11,7 @@ import com.techshop.product.entity.Product;
 import com.techshop.product.entity.Variant;
 import com.techshop.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -84,7 +86,14 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductWithVariantDto getProductDetailById(Long productId) {
+
         Product product = getProductById(productId);
+        return converter.toProductWithVariant(product);
+    }
+
+    @Override
+    public ProductWithVariantDto getByProductLink(String productLink) {
+        Product product = repo.findByProductLink(productLink);
         return converter.toProductWithVariant(product);
     }
 
@@ -106,8 +115,12 @@ public class ProductServiceImpl implements ProductService{
             product.setCategory(category);
         }
 
-        if(dto.getProductName() != null)
+        if(dto.getProductName() != null){
             product.setProductName(dto.getProductName());
+            String productLink = StringUtils.deAccent(dto.getProductName());
+            product.setProductLink(productLink);
+        }
+
 
         if(dto.getProductDesc() != null)
             product.setProductDesc(dto.getProductDesc());

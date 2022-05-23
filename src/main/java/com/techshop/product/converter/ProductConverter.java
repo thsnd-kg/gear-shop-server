@@ -33,6 +33,7 @@ public class ProductConverter {
         result.setBrand( product.getBrand());
         result.setProductDesc(product.getProductDesc());
         result.setImgUrl(product.getImgUrl());
+        result.setProductLink(product.getProductLink());
 
         List<VariantWithAttributesDto> variants = variantService.getByProductId(product.getProductId());
         result.setVariants(variants);

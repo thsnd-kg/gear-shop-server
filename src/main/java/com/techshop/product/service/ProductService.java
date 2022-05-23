@@ -16,4 +16,5 @@ public interface ProductService {
     Boolean deleteProduct(Long productId);
 //    ProductDetailDto getVariantsByProductId(Long productId);
     ProductWithVariantDto getProductDetailById(Long productId);
+    ProductWithVariantDto getByProductLink(String productLink);
 }
