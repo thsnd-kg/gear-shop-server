@@ -28,7 +28,7 @@ public class Product extends BaseEntity implements Serializable {
             unique = true)
     private String productName;
 
-    @Column(name = "product_desc")
+    @Column(name = "product_desc", length = 1000)
     private String productDesc;
 
     private String productLink;
