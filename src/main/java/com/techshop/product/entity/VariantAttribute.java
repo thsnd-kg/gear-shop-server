@@ -31,4 +31,8 @@ public class VariantAttribute implements Serializable {
 
     private String value;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name ="tag_id")
+    private Tag tag;
 }
