@@ -95,11 +95,11 @@ public class VariantServiceImpl  implements VariantService{
         variant.setImgUrl(dto.getImgUrl());
         variant.setPrice(dto.getPrice());
 
-        for(UpdateVariantAttributeDto updateAtrribute : dto.getAttributes()){
-            VariantAttribute variantAttribute = variantAttributeService.getVariantAttributeById(variant.getVariantId(), updateAtrribute.getAttributeId());
+        for(UpdateVariantAttributeDto updateAttribute : dto.getAttributes()){
+            VariantAttribute variantAttribute = variantAttributeService.getVariantAttributeById(variant.getVariantId(), updateAttribute.getAttributeId());
 
-            variantAttribute.setDescription(updateAtrribute.getDescription());
-            variantAttribute.setValue(updateAtrribute.getValue());
+            variantAttribute.setDescription(updateAttribute.getDescription());
+            variantAttribute.setValue(updateAttribute.getValue());
 
             Tag tag = tagService.getTagById(updateAttribute.getTagId());
             variantAttribute.setTag(tag);
