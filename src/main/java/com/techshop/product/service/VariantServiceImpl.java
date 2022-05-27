@@ -5,10 +5,7 @@ import com.techshop.product.dto.attribute.UpdateVariantAttributeDto;
 import com.techshop.product.dto.variant.CreateVariantDto;
 import com.techshop.product.dto.variant.UpdateVariantDto;
 import com.techshop.product.dto.variant.VariantWithAttributesDto;
-import com.techshop.product.entity.Attribute;
-import com.techshop.product.entity.Product;
-import com.techshop.product.entity.Variant;
-import com.techshop.product.entity.VariantAttribute;
+import com.techshop.product.entity.*;
 import com.techshop.product.repository.VariantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,18 +19,21 @@ import java.util.Optional;
 public class VariantServiceImpl  implements VariantService{
 
     private VariantRepository repository;
+
     private ProductService productService;
     private AttributeService attributeService;
     private VariantAttributeService variantAttributeService;
+    private TagService tagService;
 
     @Autowired
     private VariantConverter converter;
 
-    public VariantServiceImpl(VariantRepository repository, ProductService productService, AttributeService attributeService,  VariantAttributeService variantAttributeService){
+    public VariantServiceImpl(TagService tagService, VariantRepository repository, ProductService productService, AttributeService attributeService,  VariantAttributeService variantAttributeService){
         this.repository = repository;
         this.productService = productService;
         this.attributeService = attributeService;
         this.variantAttributeService= variantAttributeService;
+        this.tagService = tagService;
 
     }
 
@@ -72,7 +72,12 @@ public class VariantServiceImpl  implements VariantService{
             variantAttribute.setAttribute(attribute);
             variantAttribute.setDescription(createAttribute.getDescription());
             variantAttribute.setValue(createAttribute.getValue());
+
+            Tag tag = tagService.getTagById(createAttribute.getTagId());
+            variantAttribute.setTag(tag);
+
             variant.getAttributes().add(variantAttribute);
+
         }
 
         repository.save(variant);
@@ -95,6 +100,10 @@ public class VariantServiceImpl  implements VariantService{
 
             variantAttribute.setDescription(updateAttribute.getDescription());
             variantAttribute.setValue(updateAttribute.getValue());
+
+            Tag tag = tagService.getTagById(updateAttribute.getTagId());
+            variantAttribute.setTag(tag);
+
 
             variant.getAttributes().add(variantAttribute);
         }

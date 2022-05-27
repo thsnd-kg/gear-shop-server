@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api")
 public class CategoryController {
     private final CategoryService service;
 
@@ -29,8 +29,19 @@ public class CategoryController {
         return ResponseHandler.getResponse(service.getCategories(), HttpStatus.OK);
     }
 
+    @GetMapping("/website/categories/link/{category-link}")
+    public Object getCategoryByLink(@PathVariable("category-link") String categoryLink){
+        try{
+            return ResponseHandler.getResponse(service.getCategoryByLink(categoryLink), HttpStatus.OK);
+        } catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-    @GetMapping(path = "/{category-id}")
+    }
+
+
+
+    @GetMapping(path = "/categories/{category-id}")
     public Object getCategoryById(@PathVariable("category-id") Long categoryId){
         try{
             if(categoryId == null)
@@ -42,7 +53,7 @@ public class CategoryController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/categories")
     public Object createCategory(@Valid @RequestBody CategoryDto newCategory, BindingResult errors) {
         try {
             if(errors.hasErrors())
@@ -55,7 +66,7 @@ public class CategoryController {
 
     }
 
-    @PutMapping
+    @PutMapping("/categories")
     public Object updateCategory(@RequestBody CategoryDto updatedCategory){
         try{
             Category category = service.updateCategory(updatedCategory);
@@ -69,7 +80,7 @@ public class CategoryController {
 
     }
 
-    @DeleteMapping(path = "/{category-id}")
+    @DeleteMapping(path = "/categories/{category-id}")
     public Object deleteBrand(@PathVariable("category-id") Long categoryId) {
         try {
             if (categoryId == null)
@@ -80,7 +91,7 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping(path = "/remove-attributes")
+    @DeleteMapping(path = "/categories/remove-attributes")
     public Object removeAttributes(@RequestBody CategoryDto dto) {
         try {
             return ResponseHandler.getResponse( service.removeAttributes(dto),  HttpStatus.OK);

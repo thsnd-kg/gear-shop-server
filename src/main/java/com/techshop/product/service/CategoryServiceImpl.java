@@ -1,6 +1,7 @@
 package com.techshop.product.service;
 
 
+import com.techshop.common.util.StringUtils;
 import com.techshop.product.dto.CategoryDto;
 import com.techshop.product.entity.Attribute;
 import com.techshop.product.entity.Category;
@@ -91,6 +92,11 @@ public class CategoryServiceImpl implements CategoryService{
         return true;
     }
 
+    @Override
+    public Category getCategoryByLink(String categoryLink) {
+        return repo.findByCategoryLink(categoryLink);
+    }
+
     public Category handleData(CategoryDto dto, boolean hasId){
         Category category = new Category();
 
@@ -104,6 +110,8 @@ public class CategoryServiceImpl implements CategoryService{
 
         if(dto.getCategoryName() != null)
             category.setCategoryName(dto.getCategoryName());
+            String categoryLink = StringUtils.deAccent(dto.getCategoryName());
+            category.setCategoryLink(categoryLink);
 
         if(dto.getCategoryDesc() !=null) {
             category.setCategoryDesc(dto.getCategoryDesc());
@@ -112,6 +120,7 @@ public class CategoryServiceImpl implements CategoryService{
         if(dto.getImgUrl() !=null) {
             category.setImgUrl(dto.getImgUrl());
         }
+
 
         if(dto.getParentId() != null) {
             if(!isExisted(dto.getParentId()))

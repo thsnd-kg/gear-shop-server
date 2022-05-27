@@ -1,7 +1,9 @@
 package com.techshop.product.service;
 
 import com.techshop.product.entity.Attribute;
+import com.techshop.product.entity.Tag;
 import com.techshop.product.repository.AttributeRepository;
+import com.techshop.product.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +12,12 @@ import java.util.Optional;
 
 @Service
 public class AttributeServiceImpl implements AttributeService{
-    private final AttributeRepository repository;
+    private  AttributeRepository repository;
+    private TagRepository tagRepository;
 
-    @Autowired
-    public AttributeServiceImpl(AttributeRepository repository) {
+    public AttributeServiceImpl(AttributeRepository repository, TagRepository tagRepository) {
         this.repository = repository;
+        this.tagRepository = tagRepository;
 
     }
 
@@ -30,6 +33,11 @@ public class AttributeServiceImpl implements AttributeService{
     @Override
     public List<Attribute> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public Tag getTagByAttributeId(Long attributeId) {
+        return tagRepository.findTagByAttributeId(attributeId);
     }
 
 

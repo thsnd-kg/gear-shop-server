@@ -15,4 +15,6 @@ public interface CategoryService {
     boolean isExisted(Long categoryId);
 
     boolean removeAttributes(CategoryDto dto);
+
+    Category getCategoryByLink(String categoryLink);
 }

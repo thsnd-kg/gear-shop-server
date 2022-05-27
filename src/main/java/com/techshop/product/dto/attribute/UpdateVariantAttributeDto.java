@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class UpdateVariantAttributeDto {
     private Long attributeId;
+    private Long tagId;
     private String value;
     private String description;
 }
