@@ -1,6 +1,8 @@
 package com.techshop.product.dto.variant;
 import com.techshop.product.dto.attribute.AttributeDto;
+import com.techshop.product.dto.attribute.AttributeWithTagDto;
 import com.techshop.product.entity.Variant;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
+@Data
 public class VariantWithAttributesDto {
 
     private Long variantId;

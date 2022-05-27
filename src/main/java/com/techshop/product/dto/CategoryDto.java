@@ -17,8 +17,8 @@ public class CategoryDto {
     @NotEmpty
     @NotBlank
     private String categoryName;
-
     private String categoryDesc;
+    private String categoryLink;
     private Long parentId;
     private String imgUrl;
 

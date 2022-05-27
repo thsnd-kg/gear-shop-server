@@ -1,6 +1,7 @@
 package com.techshop.product.converter;
 
 import com.techshop.product.dto.attribute.AttributeDto;
+import com.techshop.product.dto.attribute.AttributeWithTagDto;
 import com.techshop.product.dto.variant.VariantWithAttributesDto;
 import com.techshop.product.entity.Variant;
 import com.techshop.product.service.AttributeService;
@@ -32,7 +33,10 @@ public class VariantConverter {
         result.setImgUrl(variant.getImgUrl());
         result.setPrice(variant.getPrice());
 
-        List<AttributeDto> attributes =  variant.getAttributes().isEmpty() ? new ArrayList<>() :  variant.getAttributes().stream().map(AttributeDto::new).collect(Collectors.toList());
+        List<AttributeDto> attributes = variant.getAttributes().isEmpty()
+                                        ? new ArrayList<>()
+                                        : variant.getAttributes().stream().map(AttributeDto::new).collect(Collectors.toList());
+
         result.setAttributes(attributes);
         return result;
     }

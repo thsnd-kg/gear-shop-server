@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<Category> findByActiveFlag(String isActive);
+    Category findByCategoryLink(String categoryLink);
 }

@@ -24,7 +24,6 @@ public class Product extends BaseEntity implements Serializable {
     private Long productId;
 
     @Column(name = "product_name",
-            length = 50,
             unique = true)
     private String productName;
 

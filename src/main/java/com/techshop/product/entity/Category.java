@@ -33,6 +33,8 @@ public class Category extends BaseEntity implements Serializable {
 
     private String categoryDesc;
 
+    private String categoryLink;
+
     private String imgUrl;
 
     private String activeFlag = "Y";
