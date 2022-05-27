@@ -25,8 +25,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/website/products")
-    public Object getByProductLink(@RequestParam(value = "product-link") String productLink) {
+    @GetMapping("/website/products/link/{product-link}")
+    public Object getByProductLink(@PathVariable(value = "product-link") String productLink) {
         try{
             ProductWithVariantDto products = productService.getByProductLink(productLink);
             return ResponseHandler.getResponse(products, HttpStatus.OK);
