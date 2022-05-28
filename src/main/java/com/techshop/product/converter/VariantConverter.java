@@ -35,7 +35,7 @@ public class VariantConverter {
 
         List<AttributeDto> attributes = variant.getAttributes().isEmpty()
                                         ? new ArrayList<>()
-                                        : variant.getAttributes().stream().map(AttributeDto::new).collect(Collectors.toList());
+                                        : variant.getAttributes().stream().sorted((o1, o2) -> Long.compare(o1.getAttribute().getAttributeId(), o2.getAttribute().getAttributeId())).map(AttributeDto::new).collect(Collectors.toList());
 
         result.setAttributes(attributes);
         return result;
