@@ -73,8 +73,10 @@ public class VariantServiceImpl  implements VariantService{
             variantAttribute.setDescription(createAttribute.getDescription());
             variantAttribute.setValue(createAttribute.getValue());
 
-            Tag tag = tagService.getTagById(createAttribute.getTagId());
-            variantAttribute.setTag(tag);
+            if (createAttribute.getTagId() != 0){
+                Tag tag = tagService.getTagById(createAttribute.getTagId());
+                variantAttribute.setTag(tag);
+            }
 
             variant.getAttributes().add(variantAttribute);
 
@@ -101,8 +103,13 @@ public class VariantServiceImpl  implements VariantService{
             variantAttribute.setDescription(updateAttribute.getDescription());
             variantAttribute.setValue(updateAttribute.getValue());
 
-            Tag tag = tagService.getTagById(updateAttribute.getTagId());
-            variantAttribute.setTag(tag);
+            if (updateAttribute.getTagId() != 0){
+                Tag tag = tagService.getTagById(updateAttribute.getTagId());
+                variantAttribute.setTag(tag);
+            } else {
+                variantAttribute.setTag(null);
+            }
+
 
 
             variant.getAttributes().add(variantAttribute);
