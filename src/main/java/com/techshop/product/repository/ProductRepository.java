@@ -3,12 +3,13 @@ package com.techshop.product.repository;
 import com.techshop.product.dto.product.ProductDetailDto;
 import com.techshop.product.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
     @Query("SELECT distinct p FROM Product p   WHERE p.activeFlag = :activeFlag ")
     List<Product> findByActiveFlag(String activeFlag);
 

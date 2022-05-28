@@ -3,6 +3,8 @@ package com.techshop.product.controller;
 import com.techshop.common.ResponseHandler;
 import com.techshop.product.dto.product.ProductDto;
 import com.techshop.product.dto.product.ProductWithVariantDto;
+import com.techshop.product.entity.Product;
+import com.techshop.product.search.ProductSearchCriteria;
 import com.techshop.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,14 @@ public class ProductController {
             return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/products/search")
+    public Object getProducts(ProductSearchCriteria productSearchCriteria) {
+//            List<ProductWithVariantDto> products = productService.getProducts().stream().map(ProductWithVariantDto::new).collect(Collectors.toList());
+            List<ProductWithVariantDto> products = productService.getAll(productSearchCriteria);
+            return ResponseHandler.getResponse(products, HttpStatus.OK);
+
+    }
+
 
     @GetMapping("/products")
     public Object getProducts(@RequestParam(value = "onlyActive") Boolean isActive) {
@@ -43,7 +53,7 @@ public class ProductController {
             return ResponseHandler.getResponse(products, HttpStatus.OK);
         }
 
-        return ResponseHandler.getResponse(productService.getAll(), HttpStatus.OK);
+        return ResponseHandler.getResponse(HttpStatus.OK);
     }
 
     @GetMapping(path = "/products/{product-id}")
