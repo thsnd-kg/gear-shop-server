@@ -23,6 +23,7 @@ public class ProductWithVariantDto {
     private String productDesc;
     private String imgUrl;
     private String productLink;
+    private Integer totalVariant;
     private List<VariantWithAttributesDto> variants;
 
 //    public ProductWithVariantDto(Product product) {

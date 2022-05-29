@@ -9,7 +9,12 @@ import com.techshop.product.entity.Brand;
 import com.techshop.product.entity.Category;
 import com.techshop.product.entity.Product;
 import com.techshop.product.entity.Variant;
+import com.techshop.product.repository.ProductCriteriaRepository;
 import com.techshop.product.repository.ProductRepository;
+import com.techshop.product.search.ProductSearchCriteria;
+import com.techshop.product.search.ProductSpecification;
+import com.techshop.product.search.SearchCriteria;
+import com.techshop.product.search.SearchOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -33,6 +38,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     private ProductConverter converter;
+
+    @Autowired
+    private ProductCriteriaRepository  criteriaRepository;
     
 
     @Override
@@ -46,8 +54,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> getAll() {
-        return repo.findAll();
+    public Object getAll(ProductSearchCriteria searchCriteria) {
+
+        return criteriaRepository.findAllWithFilters(searchCriteria);
     }
 
     @Override
@@ -95,6 +104,14 @@ public class ProductServiceImpl implements ProductService{
     public ProductWithVariantDto getByProductLink(String productLink) {
         Product product = repo.findByProductLink(productLink);
         return converter.toProductWithVariant(product);
+    }
+
+    @Override
+    public List<ProductWithVariantDto> getProductByCategoryLink(String categoryLink) {
+        List<Product> products = repo.findByCategoryLink(categoryLink);
+        List<ProductWithVariantDto> result = new ArrayList<>();
+        products.forEach(product -> result.add(converter.toProductWithVariant(product)));
+        return result;
     }
 
 

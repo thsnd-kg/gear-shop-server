@@ -29,15 +29,6 @@ public class CategoryController {
         return ResponseHandler.getResponse(service.getCategories(), HttpStatus.OK);
     }
 
-    @GetMapping("/website/categories/link/{category-link}")
-    public Object getCategoryByLink(@PathVariable("category-link") String categoryLink){
-        try{
-            return ResponseHandler.getResponse(service.getCategoryByLink(categoryLink), HttpStatus.OK);
-        } catch (Exception e){
-            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
 
 
 

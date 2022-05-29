@@ -32,6 +32,7 @@ public class VariantConverter {
         result.setVariantDesc(variant.getVariantDesc());
         result.setImgUrl(variant.getImgUrl());
         result.setPrice(variant.getPrice());
+        result.setQuantity(variant.getQuantity());
 
         List<AttributeDto> attributes = variant.getAttributes().isEmpty()
                                         ? new ArrayList<>()
