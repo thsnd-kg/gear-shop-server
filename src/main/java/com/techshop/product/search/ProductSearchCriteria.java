@@ -11,5 +11,6 @@ public class ProductSearchCriteria {
     private String productName;
     private List<Long> categoryId;
     private List<Long> brandId;
+    private List<Long> tagId;
 
 }

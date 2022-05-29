@@ -44,6 +44,7 @@ public class Product extends BaseEntity implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private Set<Variant> variants = new HashSet<>();
 

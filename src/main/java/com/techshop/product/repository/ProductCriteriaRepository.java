@@ -1,6 +1,7 @@
 package com.techshop.product.repository;
 
 import com.techshop.product.entity.Product;
+import com.techshop.product.entity.Variant;
 import com.techshop.product.search.ProductSearchCriteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,39 +25,59 @@ public class ProductCriteriaRepository {
         this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
-    public List<Product> findAllWithFilters( ProductSearchCriteria productSearchCriteria) {
-        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
-        Root<Product> productRoot = criteriaQuery.from(Product.class);
-        Predicate predicate = getPredicate(productSearchCriteria, productRoot);
+    public List<Variant> findAllWithFilters( ProductSearchCriteria productSearchCriteria) {
+        CriteriaQuery<Variant> criteriaQuery = criteriaBuilder.createQuery(Variant.class);
+
+        Root<Variant> variantRoot = criteriaQuery.from(Variant.class);
+
+
+        Predicate predicate = getPredicate(productSearchCriteria, variantRoot);
         criteriaQuery.where(predicate);
 
-        TypedQuery<Product> typedQuery = entityManager.createQuery(criteriaQuery);
+        TypedQuery<Variant> typedQuery = entityManager.createQuery(criteriaQuery);
+//        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+//        CriteriaQuery cq = cb.createQuery(Variant.class);
+//        Root root = cq.from(Variant.class);
+//
+//        //
+//        Subquery subProduct = cq.subquery(Long.class);
+//        Root productRoot = subProduct.from(Product.class);
+//        SetJoin<Product, Variant> subAuthors = productRoot.join(Variant_.product);
+
 
         return typedQuery.getResultList();
     }
 
-    private Predicate getPredicate(ProductSearchCriteria productSearchCriteria, Root<Product> productRoot) {
+    private Predicate getPredicate(ProductSearchCriteria productSearchCriteria, Root<Variant> variantRoot) {
         List<Predicate> predicates = new ArrayList<>();
 
-        predicates.add(criteriaBuilder.notEqual(productRoot.get("activeFlag"), "D"));
+        predicates.add(criteriaBuilder.notEqual(variantRoot.get("activeFlag"), "D"));
 
         if (Objects.nonNull(productSearchCriteria.getProductName())) {
-            predicates.add(criteriaBuilder.like(productRoot.get("productName"), "%" + productSearchCriteria.getProductName() + "%"));
+            predicates.add(criteriaBuilder.like(variantRoot.get("product").get("productName"), "%" + productSearchCriteria.getProductName() + "%"));
         }
 
         if (Objects.nonNull(productSearchCriteria.getCategoryId())) {
             if (!productSearchCriteria.getCategoryId().isEmpty()) {
-                productRoot.fetch("category", JoinType.LEFT);
-                predicates.add(criteriaBuilder.in(productRoot.get("category").get("categoryId")).value(productSearchCriteria.getCategoryId()));
+                variantRoot.fetch("product", JoinType.LEFT);
+                predicates.add(criteriaBuilder.in(variantRoot.get("product").get("category").get("categoryId")).value(productSearchCriteria.getCategoryId()));
             }
         }
 
         if (Objects.nonNull(productSearchCriteria.getBrandId())) {
             if (!productSearchCriteria.getBrandId().isEmpty()) {
-                productRoot.fetch("brand", JoinType.LEFT);
-                predicates.add(criteriaBuilder.in(productRoot.get("brand").get("brandId")).value(productSearchCriteria.getBrandId()));
+                variantRoot.fetch("product", JoinType.LEFT);
+                predicates.add(criteriaBuilder.in(variantRoot.get("product").get("brand").get("brandId")).value(productSearchCriteria.getBrandId()));
             }
         }
+
+        if (Objects.nonNull(productSearchCriteria.getTagId())) {
+            if (!productSearchCriteria.getTagId().isEmpty()) {
+                variantRoot.fetch("attributes", JoinType.LEFT);
+                predicates.add(criteriaBuilder.in(variantRoot.get("attributes").get("tagId")).value(productSearchCriteria.getTagId()));
+            }
+        }
+
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }

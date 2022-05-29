@@ -37,6 +37,7 @@ public class ProductConverter {
 
         List<VariantWithAttributesDto> variants = variantService.getByProductId(product.getProductId());
         result.setVariants(variants);
+        result.setTotalVariant(variants.size());
 
         return result;
     }

@@ -19,6 +19,7 @@ public class VariantWithAttributesDto {
     private String variantDesc;
     private Long price;
     private String imgUrl;
+    private Integer quantity;
     private List<AttributeDto> attributes;
 
 //    public VariantWithAttributesDto(Variant variant){

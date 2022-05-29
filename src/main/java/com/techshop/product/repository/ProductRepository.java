@@ -17,6 +17,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
     ProductDetailDto getProductDetail(Long productId);
 
     Product findByProductLink(String productLink);
+
+    @Query("SELECT p FROM Product p WHERE p.activeFlag = 'Y' AND p.category.categoryLink = :categoryLink")
+    List<Product> findByCategoryLink(String categoryLink);
 }
 
 

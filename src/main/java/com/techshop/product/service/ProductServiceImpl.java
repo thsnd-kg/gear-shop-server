@@ -54,13 +54,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductWithVariantDto> getAll(ProductSearchCriteria searchCriteria) {
-        List<Product> products = criteriaRepository.findAllWithFilters(searchCriteria);
-        List<ProductWithVariantDto> result = new ArrayList<>();
+    public Object getAll(ProductSearchCriteria searchCriteria) {
 
-        products.forEach(product -> result.add(converter.toProductWithVariant(product)));
-
-        return result;
+        return criteriaRepository.findAllWithFilters(searchCriteria);
     }
 
     @Override
@@ -108,6 +104,14 @@ public class ProductServiceImpl implements ProductService{
     public ProductWithVariantDto getByProductLink(String productLink) {
         Product product = repo.findByProductLink(productLink);
         return converter.toProductWithVariant(product);
+    }
+
+    @Override
+    public List<ProductWithVariantDto> getProductByCategoryLink(String categoryLink) {
+        List<Product> products = repo.findByCategoryLink(categoryLink);
+        List<ProductWithVariantDto> result = new ArrayList<>();
+        products.forEach(product -> result.add(converter.toProductWithVariant(product)));
+        return result;
     }
 
 

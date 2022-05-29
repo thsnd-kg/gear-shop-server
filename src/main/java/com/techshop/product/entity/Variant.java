@@ -2,6 +2,7 @@ package com.techshop.product.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techshop.common.entity.BaseEntity;
+import com.techshop.importer.entity.ImporterDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,16 +35,21 @@ public class Variant extends BaseEntity  implements Serializable {
     private String variantDesc;
     private Long price;
     private String imgUrl;
+    private Integer quantity = 0;
 
     @Column(columnDefinition = ("varchar(1) default 'Y'"))
     private String activeFlag = "Y";
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
     @OneToMany(mappedBy = "variant", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<VariantAttribute> attributes = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "variant")
+    private Set<ImporterDetail> imports = new HashSet<>();
 
 }

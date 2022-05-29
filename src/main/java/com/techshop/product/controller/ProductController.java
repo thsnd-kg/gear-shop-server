@@ -36,10 +36,22 @@ public class ProductController {
             return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/website/categories/link/{category-link}")
+    public Object getProductByCategoryLink(@PathVariable("category-link") String categoryLink){
+        try{
+            return ResponseHandler.getResponse(productService.getProductByCategoryLink(categoryLink), HttpStatus.OK);
+        } catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
     @GetMapping("/products/search")
     public Object getProducts(ProductSearchCriteria productSearchCriteria) {
 //            List<ProductWithVariantDto> products = productService.getProducts().stream().map(ProductWithVariantDto::new).collect(Collectors.toList());
-            List<ProductWithVariantDto> products = productService.getAll(productSearchCriteria);
+            Object  products = productService.getAll(productSearchCriteria);
             return ResponseHandler.getResponse(products, HttpStatus.OK);
 
     }
