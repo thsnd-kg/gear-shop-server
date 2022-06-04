@@ -3,6 +3,7 @@ package com.techshop.product.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techshop.common.entity.BaseEntity;
 import com.techshop.importer.entity.ImporterDetail;
+import com.techshop.order.entity.OrderDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,5 +52,9 @@ public class Variant extends BaseEntity  implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "variant")
     private Set<ImporterDetail> imports = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "variant", cascade = CascadeType.ALL)
+    private Set<OrderDetail> orderDetails = new HashSet<>();
 
 }
