@@ -21,6 +21,7 @@ public class VariantWithAttributesDto {
     private String imgUrl;
     private Integer quantity;
     private List<AttributeDto> attributes;
+    private String productName;
 
 //    public VariantWithAttributesDto(Variant variant){
 //
