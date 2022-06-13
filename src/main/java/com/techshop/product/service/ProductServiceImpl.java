@@ -114,6 +114,14 @@ public class ProductServiceImpl implements ProductService{
         return result;
     }
 
+    @Override
+    public List<ProductWithVariantDto> getProductByBrand(String brandName) {
+        List<Product> products = repo.findByBrandName(brandName);
+        List<ProductWithVariantDto> result = new ArrayList<>();
+        products.forEach(product -> result.add(converter.toProductWithVariant(product)));
+        return result;
+    }
+
 
     public Product handleData(ProductDto dto, boolean hasId){
         Product product = new Product();

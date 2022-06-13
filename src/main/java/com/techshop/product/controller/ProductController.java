@@ -47,6 +47,16 @@ public class ProductController {
 
     }
 
+    @GetMapping("/website/brands/{brand-name}")
+    public Object getProductByBrand(@PathVariable("brand-name") String brandName){
+        try{
+            return ResponseHandler.getResponse(productService.getProductByBrand(brandName), HttpStatus.OK);
+        } catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
 
     @GetMapping("/products/search")
     public Object getProducts(ProductSearchCriteria productSearchCriteria) {
