@@ -20,6 +20,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 
     @Query("SELECT p FROM Product p WHERE p.activeFlag = 'Y' AND p.category.categoryLink = :categoryLink")
     List<Product> findByCategoryLink(String categoryLink);
+
+    @Query("SELECT p FROM Product p WHERE p.activeFlag = 'Y' AND p.brand.brandName = :brandName")
+    List<Product> findByBrandName(String brandName);
 }
 
 

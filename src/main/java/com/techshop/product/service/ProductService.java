@@ -20,4 +20,6 @@ public interface ProductService {
     ProductWithVariantDto getByProductLink(String productLink);
 
     List<ProductWithVariantDto> getProductByCategoryLink(String categoryLink);
+
+    List<ProductWithVariantDto>  getProductByBrand(String brandName);
 }
