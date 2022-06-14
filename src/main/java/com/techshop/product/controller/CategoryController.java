@@ -21,7 +21,7 @@ public class CategoryController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/categories")
     public Object getCategories(@RequestParam(value = "onlyActive") Boolean isActive){
         if(isActive)
             return ResponseHandler.getResponse(service.getCategoriesActive(), HttpStatus.OK);
