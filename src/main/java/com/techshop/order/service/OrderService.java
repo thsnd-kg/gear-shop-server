@@ -2,6 +2,7 @@ package com.techshop.order.service;
 
 import com.techshop.order.dto.order.CreateOrderDetailDto;
 import com.techshop.order.dto.order.OrderInfo;
+import com.techshop.order.dto.order.OrderWithNoneAccountDto;
 import com.techshop.order.dto.order.UpdateOrderDto;
 import com.techshop.order.entity.Order;
 
@@ -37,4 +38,6 @@ public interface OrderService {
     Boolean deleteOrder(Long orderId);
 
     void updateInfoCheckOut(OrderInfo orderInfo);
+
+    Order checkoutWithNoneAccount(OrderWithNoneAccountDto dto);
 }

@@ -3,6 +3,7 @@ package com.techshop.order.service;
 import com.techshop.common.util.AdjusterUtils;
 import com.techshop.order.dto.order.CreateOrderDetailDto;
 import com.techshop.order.dto.order.OrderInfo;
+import com.techshop.order.dto.order.OrderWithNoneAccountDto;
 import com.techshop.order.dto.order.UpdateOrderDto;
 import com.techshop.order.entity.*;
 import com.techshop.order.repository.OrderDetailRepository;
@@ -16,6 +17,7 @@ import com.techshop.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -262,5 +264,38 @@ public class OrderServiceImpl implements OrderService {
         order.setPhoneNumber(orderInfo.getPhoneNumber());
 
         repository.save(order);
+    }
+
+    @Transactional
+    @Override
+    public Order checkoutWithNoneAccount(OrderWithNoneAccountDto dto) {
+        Order order = new Order();
+        order.setDeliveryAddress(dto.getDeliveryAddress());
+        order.setPhoneNumber(dto.getPhoneNumber());
+        order.setRecipientName(dto.getRecipientName());
+        order.setPaymentStatus(PaymentStatus.UNPAID);
+        order.setOrderStatus(OrderStatus.PENDING);
+
+        Set<OrderDetail> orderDetail = new HashSet<>();
+        dto.getOrderDetail().forEach(item -> {
+            OrderDetail detail = new OrderDetail();
+            Variant variant = variantService.getById(item.getVariantId());
+            detail.setVariant(variant);
+            detail.setQuantity(item.getQuantity());
+            detail.setUnitPrice(variant.getPrice());
+            detail.setOrder(order);
+
+            orderDetail.add(detail);
+        });
+
+        order.setOrderDetails(orderDetail);
+        order.setCreatedAt(LocalDateTime.now());
+
+        order.getOrderDetails().forEach(detail ->
+                variantService.handleQuantity(detail.getVariant().getVariantId(), detail.getQuantity(), "sub")
+        );
+
+
+        return repository.save(order);
     }
 }

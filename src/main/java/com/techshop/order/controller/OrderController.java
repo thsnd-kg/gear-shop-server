@@ -2,10 +2,7 @@ package com.techshop.order.controller;
 
 import com.techshop.common.ResponseHandler;
 import com.techshop.order.converter.OrderConverter;
-import com.techshop.order.dto.order.CreateOrderDetailDto;
-import com.techshop.order.dto.order.GetOrderDto;
-import com.techshop.order.dto.order.OrderInfo;
-import com.techshop.order.dto.order.UpdateOrderDto;
+import com.techshop.order.dto.order.*;
 import com.techshop.order.entity.Order;
 import com.techshop.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +80,17 @@ public class OrderController {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/user/checkout/none-account")
+    public Object checkOutOrderWithNoneAccount(@RequestBody OrderWithNoneAccountDto dto) {
+        try {
+            return ResponseHandler.getResponse( converter.toGetOrderDto(service.checkoutWithNoneAccount(dto)), HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
     @PostMapping("/user/checkout/info")
     public Object updateInfoCheckout(@RequestBody OrderInfo orderInfo){
