@@ -11,4 +11,5 @@ import lombok.Setter;
 public class GetOrderDetailDto {
     private  VariantWithAttributesDto variant;
     private  Integer quantity;
+    private Long unitPrice;
 }

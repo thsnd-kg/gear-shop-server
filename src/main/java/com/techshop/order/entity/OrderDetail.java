@@ -33,7 +33,6 @@ public class OrderDetail {
             nullable = false)
     private Integer quantity;
 
-    @Column(name = "unit_price",
-            nullable = false)
+    @Column(name = "unit_price")
     private Long unitPrice;
 }

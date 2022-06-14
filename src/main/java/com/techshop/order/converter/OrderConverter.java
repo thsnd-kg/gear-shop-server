@@ -36,6 +36,7 @@ public class OrderConverter {
         order.getOrderDetails().forEach(item -> {
             GetOrderDetailDto detailDto = new GetOrderDetailDto();
             detailDto.setQuantity(item.getQuantity());
+            detailDto.setUnitPrice(item.getUnitPrice());
             detailDto.setVariant(service.getVariantDetailById(item.getVariant().getVariantId()));
             orders.add(detailDto);
         });
