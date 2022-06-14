@@ -18,6 +18,7 @@ public class UpdateUserDto {
     private String address;
     private String imgUrl;
     private Long roleId;
+    private String dateOfBirth;
 
     @Email
     @UniqueEmail
