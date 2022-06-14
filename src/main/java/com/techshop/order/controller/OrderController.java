@@ -134,12 +134,12 @@ public class OrderController {
     }
 
     @PostMapping("/add-voucher")
-    public Object addVoucher(@RequestBody Long voucherId, BindingResult errors) {
+    public Object addVoucher(@RequestBody String voucherName, BindingResult errors) {
         try {
             if (errors.hasErrors())
                 return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-            return ResponseHandler.getResponse(  converter.toGetOrderDto(service.addVoucher(voucherId)), HttpStatus.OK);
+            return ResponseHandler.getResponse(  converter.toGetOrderDto(service.addVoucher(voucherName)), HttpStatus.OK);
         } catch (Exception e) {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
         }

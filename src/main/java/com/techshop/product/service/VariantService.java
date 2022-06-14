@@ -15,4 +15,6 @@ public interface VariantService {
     VariantWithAttributesDto getVariantDetailById(Long variantId);
 
     void deleteVariant(Long variantId);
+
+    void handleQuantity(Long variantId, Integer quantity);
 }

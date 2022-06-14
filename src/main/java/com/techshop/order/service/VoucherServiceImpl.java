@@ -80,4 +80,15 @@ public class VoucherServiceImpl implements VoucherService {
 
         return repository.save(voucher);
     }
+
+    @Override
+    public Voucher getVoucherByName(String name) {
+        Optional<Voucher> voucher = repository.findByVoucherName(name);
+
+        if (!voucher.isPresent()) {
+            throw new IllegalStateException("Voucher not exists");
+        }
+
+        return voucher.get();
+    }
 }
