@@ -13,6 +13,7 @@ import com.techshop.product.converter.ProductConverter;
 import com.techshop.product.entity.Variant;
 import com.techshop.product.service.ProductService;
 import com.techshop.product.service.VariantService;
+import com.techshop.user.entity.User;
 import com.techshop.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -158,7 +159,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getYourOrders() {
-        return repository.findByUser(userService.getProfile()).stream().filter(o -> !o.getOrderStatus().equals(OrderStatus.PUTTING)).collect(Collectors.toList());
+        User user = userService.getProfile();
+        if(user == null)
+            throw new IllegalStateException("Bạn cần đăng nhập để xem đơn hàng");
+        return repository.findByUser(user).stream().filter(o -> !o.getOrderStatus().equals(OrderStatus.PUTTING)).collect(Collectors.toList());
     }
 
     @Override
