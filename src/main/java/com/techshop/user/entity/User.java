@@ -40,6 +40,7 @@ public class User extends BaseEntity {
     private String phoneNo;
     private String address;
     private String imgUrl;
+    private String dateOfBirth;
 
     @NotNull
     @Email
