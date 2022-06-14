@@ -16,5 +16,5 @@ public interface VariantService {
 
     void deleteVariant(Long variantId);
 
-    void handleQuantity(Long variantId, Integer quantity);
+    void handleQuantity(Long variantId, Integer quantity, String method);
 }

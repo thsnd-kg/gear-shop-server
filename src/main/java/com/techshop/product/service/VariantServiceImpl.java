@@ -142,12 +142,16 @@ public class VariantServiceImpl  implements VariantService{
     }
 
     @Override
-    public void handleQuantity(Long variantId, Integer quantity) {
+    public void handleQuantity(Long variantId, Integer quantity, String method) {
         Variant variant = getById(variantId);
-        if(variant.getQuantity() < quantity)
-            throw new IllegalStateException("Số lượng trong kho không đủ");
-        else
-            variant.setQuantity(variant.getQuantity() - quantity);
+        if(method.equals("sub")){
+            if(variant.getQuantity() < quantity)
+                throw new IllegalStateException("Số lượng trong kho không đủ");
+            else
+                variant.setQuantity(variant.getQuantity() - quantity);
+        } else {
+            variant.setQuantity(variant.getQuantity() + quantity);
+        }
 
         repository.save(variant);
     }
