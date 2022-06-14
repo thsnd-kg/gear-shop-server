@@ -81,6 +81,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderDetailOptional.isPresent()) {
             OrderDetail orderDetail = orderDetailOptional.get();
             orderDetail.setQuantity(dto.getQuantity());
+            orderDetail.setUnitPrice(orderDetail.getVariant().getPrice());
 
             cart.getOrderDetails().removeIf(o -> Objects.equals(o.getVariant().getVariantId(), dto.getVariantId()));
 
@@ -94,6 +95,7 @@ public class OrderServiceImpl implements OrderService {
         orderDetail.setOrder(cart);
         orderDetail.setVariant(variant);
         orderDetail.setQuantity(dto.getQuantity());
+        orderDetail.setUnitPrice(variant.getPrice());
 
         cart.getOrderDetails().add(orderDetail);
 
@@ -180,7 +182,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         cart.getOrderDetails().forEach(detail ->
-                variantService.handleQuantity(detail.getVariant().getVariantId(), detail.getQuantity())
+                variantService.handleQuantity(detail.getVariant().getVariantId(), detail.getQuantity(), "sub")
         );
 
         cart.setOrderStatus(OrderStatus.PENDING);
@@ -193,8 +195,18 @@ public class OrderServiceImpl implements OrderService {
     public Order changeOrderStatus(UpdateOrderDto dto) {
         Order order = getOrder(dto.getOrderId());
 
+
+        if(dto.getOrderStatus() == OrderStatus.CANCELED){
+            if(order.getOrderStatus() == OrderStatus.PENDING) {
+                order.getOrderDetails().forEach(detail ->
+                        variantService.handleQuantity(detail.getVariant().getVariantId(), detail.getQuantity(), "add")
+                );
+            }
+        }
+
         order.setOrderStatus(dto.getOrderStatus());
         order.setPaymentStatus(dto.getPaymentStatus());
+
 
         return repository.save(order);
     }
