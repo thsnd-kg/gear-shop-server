@@ -160,8 +160,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getYourOrders() {
         User user = userService.getProfile();
-        if(user == null)
-            throw new IllegalStateException("Bạn cần đăng nhập để xem đơn hàng");
         return repository.findByUser(user).stream().filter(o -> !o.getOrderStatus().equals(OrderStatus.PUTTING)).collect(Collectors.toList());
     }
 
