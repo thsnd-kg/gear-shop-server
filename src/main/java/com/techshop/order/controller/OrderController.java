@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -134,12 +135,13 @@ public class OrderController {
     }
 
     @PostMapping("/add-voucher")
-    public Object addVoucher(@RequestBody String voucherName, BindingResult errors) {
+    public Object addVoucher(@RequestBody HashMap<String, String> voucher, BindingResult errors) {
         try {
             if (errors.hasErrors())
                 return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
 
-            return ResponseHandler.getResponse(  converter.toGetOrderDto(service.addVoucher(voucherName)), HttpStatus.OK);
+
+            return ResponseHandler.getResponse(  converter.toGetOrderDto(service.addVoucher(voucher.get("voucherName"))), HttpStatus.OK);
         } catch (Exception e) {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
         }
