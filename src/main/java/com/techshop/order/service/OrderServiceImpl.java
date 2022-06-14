@@ -126,13 +126,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order addVoucher(Long voucherId) {
+    public Order addVoucher(String voucherName) {
         List<Order> orderList = repository.findByUser(userService.getProfile());
         Optional<Order> cartOptional = orderList.stream().filter(o -> o.getOrderStatus().equals(OrderStatus.PUTTING)).findFirst();
 
         Order cart = cartOptional.orElseGet(this::createCart);
 
-        Voucher voucher = voucherService.getVoucherById(voucherId);
+        Voucher voucher = voucherService.getVoucherByName(voucherName);
 
         cart.setVoucher(voucher);
 
@@ -178,6 +178,10 @@ public class OrderServiceImpl implements OrderService {
             Integer voucherAmount = cart.getVoucher().getAmount();
             cart.getVoucher().setAmount(voucherAmount - 1);
         }
+
+        cart.getOrderDetails().forEach(detail ->
+                variantService.handleQuantity(detail.getVariant().getVariantId(), detail.getQuantity())
+        );
 
         cart.setOrderStatus(OrderStatus.PENDING);
         cart.setCreatedAt(LocalDateTime.now());

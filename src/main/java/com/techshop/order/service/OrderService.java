@@ -17,7 +17,7 @@ public interface OrderService {
 
     Order deleteCartItem(Long variantId);
 
-    Order addVoucher(Long voucherId);
+    Order addVoucher(String voucherName);
 
     Order removeVoucher();
 

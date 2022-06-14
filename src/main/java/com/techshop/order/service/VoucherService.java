@@ -18,4 +18,6 @@ public interface VoucherService {
     Boolean deleteVoucher(Long voucherId);
 
     Voucher updateVoucher(UpdateVoucherDto dto);
+
+    Voucher getVoucherByName(String name);
 }
