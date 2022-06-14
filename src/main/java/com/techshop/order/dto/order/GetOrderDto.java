@@ -21,6 +21,11 @@ public class GetOrderDto {
     private  String username;
     private  GetVoucherDto voucher;
     private  Long totalPrice;
-    private  List<GetOrderDetailDto> orderDetails;
     private  LocalDateTime createdAt;
+    private String deliveryAddress;
+    private String phoneNumber;
+    private String recipientName;
+    private Long discountPrice;
+    private  List<GetOrderDetailDto> orderDetails;
+
 }

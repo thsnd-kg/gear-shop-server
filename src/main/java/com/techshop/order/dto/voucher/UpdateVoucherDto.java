@@ -35,5 +35,5 @@ public class UpdateVoucherDto {
 
     @NotNull(message = "Capped at must not be null")
     @Positive(message = "Capped at must greater than 0")
-    private Integer cappedAt;
+    private Long cappedAt;
 }

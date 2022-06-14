@@ -31,6 +31,9 @@ public class OrderConverter {
                 : new GetVoucherDto(order.getVoucher()));
         result.setTotalPrice(order.getTotalPrice());
         result.setCreatedAt(order.getCreatedAt());
+        result.setDeliveryAddress(order.getDeliveryAddress());
+        result.setRecipientName(order.getRecipientName());
+        order.setPhoneNumber(order.getPhoneNumber());
 
         List<GetOrderDetailDto> orders = new ArrayList<>();
         order.getOrderDetails().forEach(item -> {
@@ -40,6 +43,15 @@ public class OrderConverter {
             detailDto.setVariant(service.getVariantDetailById(item.getVariant().getVariantId()));
             orders.add(detailDto);
         });
+
+        if (result.getVoucher() != null){
+            Long discountPrice = order.getTotalPrice() * order.getVoucher().getVoucherValue() / 100;
+            if(discountPrice > order.getVoucher().getCappedAt())
+                result.setDiscountPrice(order.getVoucher().getCappedAt());
+            else
+                result.setDiscountPrice(discountPrice);
+        }
+
 
         result.setOrderDetails(orders);
 

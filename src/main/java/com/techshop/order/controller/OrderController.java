@@ -4,6 +4,7 @@ import com.techshop.common.ResponseHandler;
 import com.techshop.order.converter.OrderConverter;
 import com.techshop.order.dto.order.CreateOrderDetailDto;
 import com.techshop.order.dto.order.GetOrderDto;
+import com.techshop.order.dto.order.OrderInfo;
 import com.techshop.order.dto.order.UpdateOrderDto;
 import com.techshop.order.entity.Order;
 import com.techshop.order.service.OrderService;
@@ -80,6 +81,16 @@ public class OrderController {
             return ResponseHandler.getResponse(  converter.toGetOrderDto(service.checkout()), HttpStatus.OK);
         } catch (Exception e) {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/user/checkout/info")
+    public Object updateInfoCheckout(@RequestBody OrderInfo orderInfo){
+        try {
+            service.updateInfoCheckOut(orderInfo);
+            return ResponseHandler.getResponse(HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 //

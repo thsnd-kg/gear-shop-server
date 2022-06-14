@@ -2,6 +2,7 @@ package com.techshop.order.service;
 
 import com.techshop.common.util.AdjusterUtils;
 import com.techshop.order.dto.order.CreateOrderDetailDto;
+import com.techshop.order.dto.order.OrderInfo;
 import com.techshop.order.dto.order.UpdateOrderDto;
 import com.techshop.order.entity.*;
 import com.techshop.order.repository.OrderDetailRepository;
@@ -195,7 +196,6 @@ public class OrderServiceImpl implements OrderService {
     public Order changeOrderStatus(UpdateOrderDto dto) {
         Order order = getOrder(dto.getOrderId());
 
-
         if(dto.getOrderStatus() == OrderStatus.CANCELED){
             if(order.getOrderStatus() == OrderStatus.PENDING) {
                 order.getOrderDetails().forEach(detail ->
@@ -250,5 +250,17 @@ public class OrderServiceImpl implements OrderService {
         repository.save(order);
 
         return true;
+    }
+
+    @Override
+    public void updateInfoCheckOut(OrderInfo orderInfo) {
+        List<Order> orderList = repository.findByUser(userService.getProfile());
+        Order order = orderList.stream().filter(o -> o.getOrderStatus().equals(OrderStatus.PUTTING)).findFirst().get();
+
+        order.setDeliveryAddress(orderInfo.getDeliveryAddress());
+        order.setRecipientName(orderInfo.getRecipientName());
+        order.setPhoneNumber(orderInfo.getPhoneNumber());
+
+        repository.save(order);
     }
 }

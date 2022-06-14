@@ -42,7 +42,7 @@ public class Voucher extends BaseEntity {
     private Integer voucherValue;
 
     @Column(name = "capped_at")
-    private Integer cappedAt;
+    private Long cappedAt;
 
     @Column(name = "is_deleted",
             columnDefinition = "boolean default false")

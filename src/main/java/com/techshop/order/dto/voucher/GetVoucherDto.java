@@ -14,7 +14,7 @@ public class GetVoucherDto {
     private final LocalDateTime validDate;
     private final LocalDateTime expirationDate;
     private final Integer voucherValue;
-    private final Integer cappedAt;
+    private final Long cappedAt;
     private final Boolean isDeleted;
 
     public GetVoucherDto(Voucher voucher) {
