@@ -22,6 +22,7 @@ public class VariantWithAttributesDto {
     private Integer quantity;
     private List<AttributeDto> attributes;
     private String productName;
+    private String productLink;
 
 //    public VariantWithAttributesDto(Variant variant){
 //

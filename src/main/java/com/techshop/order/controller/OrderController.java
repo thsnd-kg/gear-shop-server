@@ -55,7 +55,7 @@ public class OrderController {
     @GetMapping("/user")
     public Object getYourOrders() {
         try {
-            List<GetOrderDto> orders = service.getOrders().stream().map(item -> converter.toGetOrderDto(item)).collect(Collectors.toList());
+            List<GetOrderDto> orders = service.getYourOrders().stream().map(item -> converter.toGetOrderDto(item)).collect(Collectors.toList());
             return ResponseHandler.getResponse(orders, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);

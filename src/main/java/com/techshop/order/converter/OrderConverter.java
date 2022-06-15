@@ -52,6 +52,8 @@ public class OrderConverter {
                 result.setDiscountPrice(order.getVoucher().getCappedAt());
             else
                 result.setDiscountPrice(discountPrice);
+        } else {
+            result.setDiscountPrice(0L);
         }
 
 

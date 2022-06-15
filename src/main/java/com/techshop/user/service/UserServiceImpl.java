@@ -110,6 +110,9 @@ public class UserServiceImpl implements UserService {
         if(dto.getEmail() != null)
             user.setEmail(dto.getEmail());
 
+        if(dto.getDateOfBirth() != null)
+            user.setDateOfBirth(dto.getDateOfBirth());
+
         if(dto.getRoleId() != null){
             Role newRole = roleService.getRoleById(dto.getRoleId());
             user.setRole(newRole);

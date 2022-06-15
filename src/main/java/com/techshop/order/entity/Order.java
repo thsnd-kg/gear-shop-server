@@ -35,19 +35,6 @@ public class Order extends BaseEntity {
     private Long totalPrice;
 
     public Long getTotalPrice() {
-        if (voucher != null) {
-            long sum = orderDetails.stream().mapToLong(i -> i.getVariant().getPrice() * i.getQuantity()).sum();
-            long deal = sum * voucher.getVoucherValue() / 100;
-            System.out.println(voucher.getCappedAt());
-            if (deal > voucher.getCappedAt()) {
-                sum = sum - voucher.getCappedAt();
-            } else {
-                sum = sum - deal;
-            }
-
-            return sum;
-        }
-
         return orderDetails.stream().mapToLong(i -> i.getVariant().getPrice() * i.getQuantity()).sum();
     }
 

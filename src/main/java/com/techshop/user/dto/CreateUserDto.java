@@ -30,5 +30,6 @@ public class CreateUserDto {
     private String email;
 
     private Long roleId;
+    private String dateOfBirth;
 
 }
