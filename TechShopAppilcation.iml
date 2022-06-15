@@ -54,13 +54,10 @@
     <orderEntry type="library" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.4" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.jaxb:txw2:2.3.4" level="project" />
     <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.12" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.sun.activation:jakarta.activation:1.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:2.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.3.9" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.9" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.5.3" level="project" />
@@ -147,5 +144,11 @@
     <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt:0.9.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.12.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-mail:2.5.6" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.mail:jakarta.mail:1.6.7" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.activation:jakarta.activation:1.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.9" level="project" />
   </component>
 </module>
