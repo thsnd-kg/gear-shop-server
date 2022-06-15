@@ -23,10 +23,22 @@ public class MailServiceImpl implements MailService{
         message.setFrom(from);
         message.setTo(email);
         message.setSubject("Xác thực Mail");
-        String text = String.format("Wellcome to Gear Shop\n" +
-                "Follow this link to confirm your email address, this link is only valid in 1 day: %s/xac-thuc/xac-nhan-email?token=%s.", domain,token);
+        String text = String.format("Chào mừng đến với Gear Shop\n" +
+                "Nhấn vào đường link để xác thực tài khoản của bạn, link sẽ hết hạn sau 1 ngày: %s/xac-thuc/xac-nhan-email?token=%s.", domain,token);
         message.setText(text);
         emailSender.send(message);
+    }
 
+    @Override
+    public void sendVerifyResetPassword(String email, String token) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(email);
+        message.setSubject("Quên mật khẩu");
+        String text = String.format("Chào mừng đến với Gear Shop\n" +
+                "Nhấn vào đường link để đặt lại mật khẩu của bạn, link sẽ hết hạn sau 10 phút: %s/xac-thuc/quen-mat-khau?token=%s.", domain,token);
+
+        message.setText(text);
+        emailSender.send(message);
     }
 }

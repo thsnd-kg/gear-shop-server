@@ -3,10 +3,12 @@ package com.techshop.security.controller;
 import com.techshop.common.ResponseHandler;
 import com.techshop.mail.service.MailService;
 import com.techshop.security.dto.ConfirmMailDto;
+import com.techshop.security.dto.ForgotPasswordDto;
 import com.techshop.security.dto.LoginDto;
 import com.techshop.security.jwt.JwtUtils;
 import com.techshop.security.service.SecurityUserService;
 import com.techshop.user.dto.CreateUserDto;
+import com.techshop.user.entity.PasswordResetToken;
 import com.techshop.user.entity.User;
 import com.techshop.user.entity.VerificationToken;
 import com.techshop.user.repository.UserRepository;
@@ -105,16 +107,29 @@ public class AuthController {
 
 
 
-    @GetMapping(path= "forgot-password/{email}")
-    public Object forgotPassword(@PathVariable("email") String email) {
+    @GetMapping(path= "/forgot-password")
+    public Object forgotPassword(@Param("email") String email) {
         try{
 //
 //            String token = securityUserService.getForgotPasswordToken(email);
-
+            PasswordResetToken token =securityUserService.createPasswordResetToken(email);
+            mailService.sendVerifyResetPassword(token.getUser().getEmail(), token.getToken());
 
             return ResponseHandler.getResponse(HttpStatus.OK);
         } catch (Exception e){
             return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping(path = "/reset-password")
+    public Object confirmForgotPassword(@RequestBody ForgotPasswordDto dto) {
+        try{
+            securityUserService.verifyPasswordResetToken(dto);
+
+            return ResponseHandler.getResponse(HttpStatus.OK);
+        } catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
