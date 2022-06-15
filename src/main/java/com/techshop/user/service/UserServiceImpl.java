@@ -58,6 +58,9 @@ public class UserServiceImpl implements UserService {
             newUser.setRole(role);
         }
 
+        if(dto.getFlag() != null)
+            newUser.setActiveFlag("N");
+
         return repository.save(newUser);
     }
 
