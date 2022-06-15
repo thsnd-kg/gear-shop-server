@@ -31,5 +31,6 @@ public class CreateUserDto {
 
     private Long roleId;
     private String dateOfBirth;
+    private String flag;
 
 }

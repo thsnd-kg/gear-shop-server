@@ -1,6 +1,7 @@
 package com.techshop.user.controller;
 
 import com.techshop.common.ResponseHandler;
+import com.techshop.security.service.SecurityUserService;
 import com.techshop.user.dto.ChangePasswordDto;
 import com.techshop.user.dto.CreateUserDto;
 import com.techshop.user.dto.UpdateUserDto;
@@ -21,8 +22,9 @@ public class UserController {
 
     private UserService service;
 
+
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, SecurityUserService securityUserService){
         this.service = userService;
     }
 
