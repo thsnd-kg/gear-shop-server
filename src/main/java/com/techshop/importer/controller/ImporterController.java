@@ -52,22 +52,8 @@ public class ImporterController {
         }
     }
 
-    @GetMapping("/report")
-    public Object importReport(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
-                                  @RequestParam String compression) {
-//        try {
-//            Map<LocalDate, List<GetImporterDto>> result = service.getImportReport(start, end, compression)
-//                    .entrySet().stream().collect(
-//                            Collectors.toMap(Map.Entry::getKey,
-//                                    e -> e.getValue().stream().map(GetImporterDto::new)
-//                                            .collect(Collectors.toList())));
 
-            return ResponseHandler.getResponse( HttpStatus.OK);
-//        } catch (Exception e) {
-//            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
-//        }
-    }
+
 
     @PostMapping
     public Object createImport(@Valid @RequestBody CreateImporterDto dto, BindingResult errors) {

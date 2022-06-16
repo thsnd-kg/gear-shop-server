@@ -19,10 +19,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -112,5 +109,14 @@ public class ImporterServiceImpl implements ImporterService {
         });
 
         return result;
+    }
+
+    @Override
+    public Object getTotalCost() {
+        List<Importer> importers = repository.findAll();
+        return new HashMap<String, Object>() {{
+            put("count_import", importers.size());
+            put("total_cost", importers.stream().map(Importer::getTotalPrice).mapToLong(Long::longValue).sum());
+        }};
     }
 }

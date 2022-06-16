@@ -40,4 +40,6 @@ public interface OrderService {
     void updateInfoCheckOut(OrderInfo orderInfo);
 
     Order checkoutWithNoneAccount(OrderWithNoneAccountDto dto);
+
+    Object getRevenue();
 }
