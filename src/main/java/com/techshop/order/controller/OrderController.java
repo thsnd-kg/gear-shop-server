@@ -119,14 +119,7 @@ public class OrderController {
 //        }
 //    }
 
-    @GetMapping("/best-seller")
-    public Object bestSeller() {
-        try {
-            return ResponseHandler.getResponse(service.getBestSeller(), HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseHandler.getResponse(e, HttpStatus.BAD_REQUEST);
-        }
-    }
+
 
     @PostMapping("/add-item")
     public Object addCartItem( @RequestBody CreateOrderDetailDto dto, BindingResult errors) {

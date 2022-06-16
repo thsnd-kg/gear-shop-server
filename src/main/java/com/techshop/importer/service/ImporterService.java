@@ -18,4 +18,6 @@ public interface ImporterService {
     Map<LocalDate, List<Importer>> getImportReport(LocalDate start, LocalDate end, String compression);
 
     List<GetImporterDetailDto> getImportDetail(Set<ImporterDetail> importDetails);
+
+    Object getTotalCost();
 }
