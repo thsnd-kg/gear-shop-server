@@ -14,4 +14,6 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 
     @Query("FROM Voucher v WHERE v.voucherName = :name")
     Optional<Voucher> findByVoucherName(String name);
+
+    boolean existsByVoucherName(String voucherName);
 }
