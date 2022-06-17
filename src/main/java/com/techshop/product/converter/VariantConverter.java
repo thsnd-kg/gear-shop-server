@@ -35,6 +35,7 @@ public class VariantConverter {
         result.setQuantity(variant.getQuantity());
         result.setProductName(variant.getProduct().getProductName());
         result.setProductLink(variant.getProduct().getProductLink());
+        result.setImportPrice(variant.getImportPrice());
 
         List<AttributeDto> attributes = variant.getAttributes().isEmpty()
                                         ? new ArrayList<>()
