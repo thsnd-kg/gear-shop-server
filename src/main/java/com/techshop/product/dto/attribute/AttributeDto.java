@@ -5,8 +5,10 @@ import com.techshop.product.entity.VariantAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class AttributeDto {
     private Long attributeId;
     private String attributeName;
