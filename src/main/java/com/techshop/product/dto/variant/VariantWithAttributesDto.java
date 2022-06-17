@@ -23,6 +23,7 @@ public class VariantWithAttributesDto {
     private List<AttributeDto> attributes;
     private String productName;
     private String productLink;
+    private Long importPrice;
 
 //    public VariantWithAttributesDto(Variant variant){
 //

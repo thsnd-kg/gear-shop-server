@@ -37,6 +37,7 @@ public class Variant extends BaseEntity  implements Serializable {
     private Long price;
     private String imgUrl;
     private Integer quantity = 0;
+    private Long importPrice = 0L;
 
     @Column(columnDefinition = ("varchar(1) default 'Y'"))
     private String activeFlag = "Y";
