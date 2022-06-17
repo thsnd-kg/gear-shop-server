@@ -234,13 +234,19 @@ public class OrderServiceImpl implements OrderService {
                         Collectors.summingInt(OrderDetail::getQuantity)));
 
         calc.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).forEachOrdered(x -> sorted.put(x.getKey(), x.getValue()));
+
+        int[] index = { 0 };
         sorted.forEach((aLong, integer) -> {
+            int currentIndex = index[0];
+            if(currentIndex == 4)
+                return;
             Map<String, Object> temp = new HashMap<>();
 
             temp.put("product",converter.toProductWithVariant(productService.getProductById(aLong)));
             temp.put("quantity_sold", integer);
 
             sold.add(temp);
+            index[0]++;
         });
 
         return sold;

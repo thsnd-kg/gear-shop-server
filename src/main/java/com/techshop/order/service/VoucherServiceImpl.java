@@ -44,6 +44,9 @@ public class VoucherServiceImpl implements VoucherService {
     public Voucher createVoucher(CreateVoucherDto dto) {
         Voucher voucher = new Voucher();
 
+        if(repository.existsByVoucherName(dto.getVoucherName()))
+            throw new IllegalStateException("Voucher này đã tồn tại");
+
         voucher.setVoucherName(dto.getVoucherName());
         voucher.setVoucherDesc(dto.getVoucherDesc());
         voucher.setVoucherValue(dto.getVoucherValue());
