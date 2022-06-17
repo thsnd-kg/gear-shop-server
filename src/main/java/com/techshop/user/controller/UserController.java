@@ -2,6 +2,7 @@ package com.techshop.user.controller;
 
 import com.techshop.common.ResponseHandler;
 import com.techshop.security.service.SecurityUserService;
+import com.techshop.user.dto.BlockedUserDto;
 import com.techshop.user.dto.ChangePasswordDto;
 import com.techshop.user.dto.CreateUserDto;
 import com.techshop.user.dto.UpdateUserDto;
@@ -56,6 +57,16 @@ public class UserController {
             User addedUser = service.createUser(dto);
 
             return ResponseHandler.getResponse(addedUser, HttpStatus.CREATED);
+        } catch (Exception e){
+            return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(path = "/users/block-user")
+    public Object blockUser(@RequestBody BlockedUserDto dto) {
+        try{
+            service.changeStatus(dto);
+            return ResponseHandler.getResponse( HttpStatus.OK);
         } catch (Exception e){
             return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -128,5 +139,7 @@ public class UserController {
             return ResponseHandler.getResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
 }

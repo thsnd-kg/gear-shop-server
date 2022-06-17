@@ -2,6 +2,7 @@ package com.techshop.user.service;
 
 import com.techshop.role.entity.Role;
 import com.techshop.role.service.RoleService;
+import com.techshop.user.dto.BlockedUserDto;
 import com.techshop.user.dto.ChangePasswordDto;
 import com.techshop.user.dto.CreateUserDto;
 import com.techshop.user.dto.UpdateUserDto;
@@ -161,6 +162,13 @@ public class UserServiceImpl implements UserService {
         }
 
 
+    }
+
+    @Override
+    public void changeStatus(BlockedUserDto dto) {
+        User user = getUserByUsername(dto.getUsername());
+        user.setActiveFlag(dto.getFlag());
+        repository.save(user);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.techshop.user.service;
 
+import com.techshop.user.dto.BlockedUserDto;
 import com.techshop.user.dto.ChangePasswordDto;
 import com.techshop.user.dto.CreateUserDto;
 import com.techshop.user.dto.UpdateUserDto;
@@ -29,4 +30,6 @@ public interface UserService {
     User getProfile();
 
     void changePassword(ChangePasswordDto dto);
+
+    void changeStatus(BlockedUserDto dto);
 }

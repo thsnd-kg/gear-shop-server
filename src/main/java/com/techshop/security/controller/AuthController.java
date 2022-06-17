@@ -26,6 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @CrossOrigin
 @RestController
@@ -70,6 +71,39 @@ public class AuthController {
             String token = jwtUtils.generateJwtToken(auth);
             // log history - AOP
             return ResponseHandler.getResponse(token, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println("{} has been logged in with wrong password: {}" + dto.getUsername() + e.getMessage() );
+        }
+
+        return ResponseHandler.getResponse("Username or password is invalid.", HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/admin/login")
+    public Object loginMgmt(@Valid @RequestBody LoginDto dto, BindingResult errors) {
+        if(errors.hasErrors())
+            return ResponseHandler.getResponse(errors, HttpStatus.BAD_REQUEST);
+
+        Authentication auth = null;
+
+        try {
+            auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword())
+            );
+
+            User user = userService.getUserByUsername(dto.getUsername());
+            if(user.getActiveFlag().equals("B"))
+                return ResponseHandler.getResponse("Your account has been blocked", HttpStatus.OK);
+
+            if(user.getActiveFlag().equals("D"))
+                return ResponseHandler.getResponse("Your account has been deleted", HttpStatus.INTERNAL_SERVER_ERROR);
+
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            String token = jwtUtils.generateJwtToken(auth);
+            // log history - AOP
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("accessToken", token);
+            response.put("role", user.getRole().getName());
+            return ResponseHandler.getResponse(response, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println("{} has been logged in with wrong password: {}" + dto.getUsername() + e.getMessage() );
         }
