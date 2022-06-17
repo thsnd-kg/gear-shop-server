@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -89,7 +90,7 @@ public class ImporterServiceImpl implements ImporterService {
     @Override
     public Map<LocalDate, List<Importer>> getImportReport(LocalDate start, LocalDate end, String compression) {
 
-        return repository.findByCreatedAtBetweenOrderByCreatedAt(start.atStartOfDay(), end.atStartOfDay())
+        return repository.findByCreatedAtBetweenOrderByCreatedAt(start.atStartOfDay(), end.atTime(LocalTime.MAX))
                 .stream().collect(Collectors.groupingBy(item ->
                         item.getCreatedAt().toLocalDate().with(AdjusterUtils.getAdjuster().get(compression))));
     }
