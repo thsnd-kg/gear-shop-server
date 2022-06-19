@@ -65,7 +65,7 @@ public class AuthController {
 
             User user = userService.getUserByUsername(dto.getUsername());
             if(user.getActiveFlag().equals("B"))
-                return ResponseHandler.getResponse("Your account has been blocked", HttpStatus.OK);
+                return ResponseHandler.getResponse("Your account has been blocked", HttpStatus.INTERNAL_SERVER_ERROR);
 
             SecurityContextHolder.getContext().setAuthentication(auth);
             String token = jwtUtils.generateJwtToken(auth);
